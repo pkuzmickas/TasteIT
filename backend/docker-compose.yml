@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  nodebackend:
+    image: node:11
+    ports:
+      - 4000:4000
+    working_dir: /node
+    volumes:
+      - ./node:/node
+      - /node/node_modules
+      - ./node/ingredients:/node/ingredients
+    depends_on:
+      - postgresdb
+    command: bash -c "yarn && yarn dev"
+
+  postgresdb:
+    image: postgrestestenv
+    volumes: 
+      - /development/tasteIT-git/TasteIT/backend/postgres:/var/lib/postgresql/tasteIT
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: yeet
+      POSTGRES_DB: tasteit
+
+    ##name: postgresdb
+    

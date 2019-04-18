@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  nodebackend:
+  node:
     image: node:11
     ports:
       - 4000:4000
@@ -11,18 +11,19 @@ services:
       - /node/node_modules
       - ./node/ingredients:/node/ingredients
     depends_on:
-      - postgresdb
+      - postgres
     command: bash -c "yarn && yarn dev"
 
-  postgresdb:
+  postgres:
     image: postgres
     volumes: 
-      - ./postgres:/var/lib/postgresql/tasteIT
+      - ./postgres:/var/lib/postgresql/
     ports:
       - 5000:5432
-    ##environment:
-     ## POSTGRES_PASSWORD: yeet
-     ## POSTGRES_DB: tasteit
-
+    environment:
+      POSTGRES_USER: tasteit
+      POSTGRES_PASSWORD: EkHMphfkH7raPWFvZnPxQdSh9ZpLHeeUK8r9mG5QAAct77HenN
+      POSTGRES_DB: tasteit
+      
     ##name: postgresdb
     

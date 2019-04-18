@@ -7,17 +7,17 @@ const port = 4000
 const { Client } = require('pg')
 const client = new Client({
   user: 'postgres',
-  host: 'postgresdb',
+  host: 'postgres',
   database: 'tasteit',
-  password: 'yeet',
-  port: 5000,
+  password: '',
+  port: 5432,
 })
-client.connect();
+client.connect(err => console.log("Connecting ERROR: " + err));
 
 //Json reading
 const fs = require("fs");
 
-// Querys for recipes are rid, rname, rimgurl, ringurl, rscore, rtimereq, rhowto
+// Querys for recipes are rid, rname, rimgurl, ringurl, rscore, rtimereq, rhowto, rmetaurl
 // Ingdocs reads: every line starts with % and ends with & and every entry is described as
 // amount:measurement:name and are separeted by :
 
@@ -44,19 +44,20 @@ function rootRoute(res){
     getAllRecipes().then(result => {
         res.json(result.data)
      }).catch(() => console.log("get(/) did not recive data"));
+     //res.send("Yes")
 }
 
 function recipeRoute(req, res){
     getRecipe(req.params.id).then(result => {
         res.json(result.data)
-    })
+    }).catch(err => console.log(err));
     
 }
 
 function ingredientRoute(req, res){
     getIngredients(req.params.id).then(result => {
         res.json(result.data)
-    })
+    }).catch(err => console.log(err));
 }
 
 
@@ -67,7 +68,7 @@ async function getAllRecipes(){
     let response;
     await client.query('SELECT * FROM recipes').then( res=> {
         response = res.rows;
-    });
+    }).catch(err => console.log(err));
     return {
         data: response
     }       
@@ -78,7 +79,7 @@ async function getRecipe(id){
     let response;
     await client.query(`SELECT * FROM recipes WHERE rid=${id}`).then(res => {
         response = res.rows;
-    });
+    }).catch(err => console.log(err));
     return {
         data: response
     } ;

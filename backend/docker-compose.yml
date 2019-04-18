@@ -15,14 +15,14 @@ services:
     command: bash -c "yarn && yarn dev"
 
   postgresdb:
-    image: postgrestestenv
+    image: postgres
     volumes: 
-      - /development/tasteIT-git/TasteIT/backend/postgres:/var/lib/postgresql/tasteIT
+      - ./postgres:/var/lib/postgresql/tasteIT
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: yeet
-      POSTGRES_DB: tasteit
+      - 5000:5432
+    ##environment:
+     ## POSTGRES_PASSWORD: yeet
+     ## POSTGRES_DB: tasteit
 
     ##name: postgresdb
     

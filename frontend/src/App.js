@@ -3,15 +3,16 @@ import {BrowserRouter, Switch} from 'react-router-dom';
 import {Route} from 'react-router'
 import {DigitProviders, DigitHeader} from '@cthit/react-digit-components';
 
-
-import Home from './components/Home'
+import Router from './components/Router'
 import NotFound from './components/NotFound'
 
 class App extends Component {
   render() {
     return (
       <DigitProviders>
-            <Home />
+        <DigitHeader title="TasteIT"
+          renderMain={() => <Router />}
+        />
       </DigitProviders>
     );
   }

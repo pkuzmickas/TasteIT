@@ -4,6 +4,7 @@ import {Route} from 'react-router';
 
 import Home from './Home'
 import Upload from './Upload'
+import Recipe from './Recipe'
 import NotFound from './NotFound'
 
 class Router extends Component {
@@ -13,6 +14,7 @@ class Router extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/upload" component={Upload} />
+          <Route path="/recipe" component={Recipe} />
           <Route path="/" component={NotFound} />
         </Switch>
       </BrowserRouter>

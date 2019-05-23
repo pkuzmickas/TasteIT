@@ -3,25 +3,22 @@ import ReactDOM from 'react-dom'
 import * as yup from 'yup'
 import {DigitText, DigitForm, DigitDesign,
         DigitFormField, DigitTextField, DigitCheckbox,
-        DigitButton, DigitTextArea, DigitEditData} from '@cthit/react-digit-components'
+        DigitButton, DigitTextArea, DigitEditData,
+        DigitToast, DigitToasActions} from '@cthit/react-digit-components'
 import "./Upload.css"
 
 class Upload extends Component {
   render() {
     return (
       <div className="upload">
-          <DigitText.Heading3 text="Upload recept" />
+          <DigitText.Heading3 text="Upload recipe" />
           <div className="uploadform">
             <DigitEditData
-                initialValues={{
-                  recipename: "Name of the recipe",
-                  recipetime: "Time required by the recipe",
-                  recipeingredients: "Ingredients used by the recipe",
-                  recipeinstructions: "Instruction"
-                }}
                 onSubmit={(values, actions) => {
                   // Send values to the backend to be stored in the database
                   console.log(values);
+                  // Converts string into int
+                  values.recipetime = parseInt(values.recipetime, 10);
                   // Consider sending a notifaction before reset
                   actions.resetForm();
                 }}
@@ -31,10 +28,9 @@ class Upload extends Component {
                   recipeingredients: yup.string().required(),
                   recipeinstructions: yup.string().required()
                 })}
-                titleText={"placeholder"}
                 submitText={"Upload recipe"}
-                keysOrder={["recipename", "recipetime",
-                            "recipeingredients", "recipeinstructions"]}
+                keysOrder={["recipename", "recipetime", "recipeingredients",
+                            "recipedescription", "recipeinstructions"]}
                 keysComponentData={{
                   recipename: {
                       component: DigitTextField,
@@ -55,6 +51,13 @@ class Upload extends Component {
                       componentProps: {
                         filled: true,
                         upperLabel: "Recipe Ingredients"
+                      }
+                  },
+                  recipedescription: {
+                      component: DigitTextArea,
+                      componentProps: {
+                        filled: true,
+                        upperLabel: "Recipedescription"
                       }
                   },
                   recipeinstructions: {

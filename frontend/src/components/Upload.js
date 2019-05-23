@@ -3,62 +3,70 @@ import ReactDOM from 'react-dom'
 import * as yup from 'yup'
 import {DigitText, DigitForm, DigitDesign,
         DigitFormField, DigitTextField, DigitCheckbox,
-        DigitButton, DigitTextArea} from '@cthit/react-digit-components'
+        DigitButton, DigitTextArea, DigitEditData} from '@cthit/react-digit-components'
 import "./Upload.css"
 
 class Upload extends Component {
   render() {
     return (
       <div className="upload">
-          <DigitText.Heading3 text="Ladda upp recept" />
+          <DigitText.Heading3 text="Upload recept" />
           <div className="uploadform">
-            <DigitForm
-              onSubmit={(values, actions) => {
-                console.log(values);
-              }}
-              initialValues={{ recipeName: "text", agreement: false }}
-              validationSchema={yup.object().shape({
-                text: yup.string().required("This can't be empty"),
-                agreement: yup.boolean().required("You need to accept")
-              })}
-              render={({ errors }) => (
-                <DigitDesign.Card absWidth="500px" absHeight="500px">
-                  <DigitDesign.CardBody>
-                    <DigitFormField
-                      name="recipeName"
-                      component={DigitTextField}
-                      componentProps={{
-                        upperLabel: "Receptnamn"
-                      }}
-                    />
-                    <DigitFormField
-                      name="recipeTime"
-                      component={DigitTextField}
-                      componentProps={{
-                        upperLabel: "Tid"
-                      }}
-                    />
-                    <DigitFormField
-                      name="recipeInstructions"
-                      component={DigitTextArea}
-                      componentProps={{
-                        upperLabel: "Receptinstruktioner",
-                        lowerLabel: "Fyll i instruktioner"
-                      }}
-                    />
-                    <DigitFormField
-                      name="agreement"
-                      component={DigitCheckbox}
-                      componentProps={{ primary: true, label:"Agreement" }}
-                    />
-                  </DigitDesign.CardBody>
-                  <DigitDesign.CardButtons>
-                    <DigitButton primary raised submit text="Lägg till recept" />
-                  </DigitDesign.CardButtons>
-                </DigitDesign.Card>
-              )}
-            />;
-        </div>
+            <DigitEditData
+                initialValues={{
+                  recipename: "Name of the recipe",
+                  recipetime: "Time required by the recipe",
+                  recipeingredients: "Ingredients used by the recipe",
+                  recipeinstructions: "Instruction"
+                }}
+                onSubmit={(values, actions) => {
+                  // Send values to the backend to be stored in the database
+                  console.log(values);
+                  // Consider sending a notifaction before reset
+                  actions.resetForm();
+                }}
+                validationSchema={yup.object().shape({
+                  recipename: yup.string().required(),
+                  recipetime: yup.string().required(),
+                  recipeingredients: yup.string().required(),
+                  recipeinstructions: yup.string().required()
+                })}
+                titleText={"placeholder"}
+                submitText={"Upload recipe"}
+                keysOrder={["recipename", "recipetime",
+                            "recipeingredients", "recipeinstructions"]}
+                keysComponentData={{
+                  recipename: {
+                      component: DigitTextField,
+                      componentProps: {
+                          filled: true,
+                          upperLabel: "Recipename"
+                      }
+                  },
+                  recipetime: {
+                      component: DigitTextField,
+                      componentProps: {
+                        filled: true,
+                        upperLabel: "Recipetime"
+                      }
+                  },
+                  recipeingredients: {
+                      component: DigitTextArea,
+                      componentProps: {
+                        filled: true,
+                        upperLabel: "Recipe Ingredients"
+                      }
+                  },
+                  recipeinstructions: {
+                      component: DigitTextArea,
+                      componentProps: {
+                        filled: true,
+                        upperLabel: "Recipe Instructions"
+                      }
+                  }
+                }}
+                />
+          </div>
       </div>
     );
   }

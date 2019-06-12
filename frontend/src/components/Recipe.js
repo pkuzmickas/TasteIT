@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {DigitText} from '@cthit/react-digit-components'
 import Ingredientlist from './elements/recipe/Ingredientlist.js'
-import "./Recipe.css"
+import "./styles/Recipe.css"
 class Recipe extends Component {
 
   render() {

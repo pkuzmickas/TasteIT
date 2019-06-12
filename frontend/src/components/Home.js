@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {DigitLayout} from '@cthit/react-digit-components'
 import RecipeGridItem from './elements/home/RecipeGridItem.js'
 import axios from 'axios'
-import './Home.css';
+import './styles/Home.css';
 
 class Home extends Component {
   constructor(props) {

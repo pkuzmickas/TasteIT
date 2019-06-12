@@ -6,7 +6,7 @@ import {DigitText, DigitForm, DigitDesign,
         DigitTextField, DigitCheckbox,
         DigitButton, DigitTextArea, DigitEditData,
         DigitToast, DigitToasActions} from '@cthit/react-digit-components'
-import "./Upload.css"
+import "./styles/Upload.css"
 
 class Upload extends Component {
   render() {

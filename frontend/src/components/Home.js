@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {DigitTable} from '@cthit/react-digit-components'
+import {DigitLayout} from '@cthit/react-digit-components'
+import RecipeGridItem from './elements/home/RecipeGridItem.js'
 import axios from 'axios'
 import './Home.css';
 
@@ -29,28 +30,22 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="recipetable">
-        <DigitTable search
-                    titleText="Recept från diverse teknologer"
-                    searchText="Sök efter recept"
-                    showSearchableProps
-                    idProp="id"
-                    startOrderBy="name"
-                    columnsOrder={["name", "score", "time"]}
-                    headerTexts={{
-                      name: "Recipe name",
-                      score: "Rating",
-                      time: "Time"
-                    }}
-                    data={[
-                      {
-                        name: "Dragonkyckling",
-                        score: "10",
-                        time: "50 min"
-                      }
-                    ]}
-                    />
-
+      <div className="recipegrid">
+        <DigitLayout.UniformGrid
+          minItemWidth="300px"
+          minItemHeight="200px"
+          rowGap="30px"
+          columnGap="30px"
+          >
+          <RecipeGridItem />
+          <RecipeGridItem />
+          <RecipeGridItem />
+          <RecipeGridItem />
+          <RecipeGridItem />
+          <RecipeGridItem />
+          <RecipeGridItem />
+          <RecipeGridItem />
+        </DigitLayout.UniformGrid>
       </div>
     );
   }

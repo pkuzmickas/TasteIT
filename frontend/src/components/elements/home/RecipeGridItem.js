@@ -19,7 +19,7 @@ class RecipeGridItem extends Component {
   }
 
   openRecipePage() {
-    // Store state in localStorage, then opens Recipe page
+    // Store information in localStorage, then opens Recipe page
     // TODO: Figure out how to open a new page
   }
 

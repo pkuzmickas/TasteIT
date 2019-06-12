@@ -6,12 +6,13 @@ class RecipeGridItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipename: "Dragon Chicken",
-      recipetime: "30 min",
+      recipename: this.props.recipename,
+      recipetime: this.props.recipetime,
       // Rest of props are to be sent to recipe page
-      recipedescription:"",
-      recipeingredients:"",
-      recipeinstructions:""
+      recipeamount: this.props.recipeamount,
+      recipedescription: this.props.recipedescription,
+      recipeingredients: this.props.recipeingredients,
+      recipeinstructions: this.props.recipeinstructions
 
     };
     // binding for callback

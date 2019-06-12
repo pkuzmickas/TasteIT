@@ -37,14 +37,12 @@ class Home extends Component {
           rowGap="30px"
           columnGap="30px"
           >
-          <RecipeGridItem />
-          <RecipeGridItem />
-          <RecipeGridItem />
-          <RecipeGridItem />
-          <RecipeGridItem />
-          <RecipeGridItem />
-          <RecipeGridItem />
-          <RecipeGridItem />
+          <RecipeGridItem recipename="Dragon Chicken"
+                          recipetime="30 min"
+                          recipeamount="1"
+                          recipedescription="DrawIT's signature dish"
+                          recipeingredients="Dragon, Chicken"
+                          recipeinstructions="Fry chicken, mix with chopped dragon"/>
         </DigitLayout.UniformGrid>
       </div>
     );

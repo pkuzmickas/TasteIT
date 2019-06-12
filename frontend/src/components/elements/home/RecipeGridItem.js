@@ -6,7 +6,7 @@ class RecipeGridItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipename: "dragoonchicken",
+      recipename: "Dragon Chicken",
       recipetime: "30 min",
       // Rest of props are to be sent to recipe page
       recipedescription:"",

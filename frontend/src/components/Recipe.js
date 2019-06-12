@@ -7,11 +7,13 @@ class Recipe extends Component {
 
   render() {
     return (
-      <div>
+      <div className="recipe">
         //<DigitText.Heading3 text={this.props.recipename} />
         //<DigitText.Subtitle text={this.props.recipedescription} />
+        <DigitText.Heading3 text="Dragon Chicken" />
+        <DigitText.Subtitle text="A delicious way to eat chicken, \n DrawIT's signature dish" />
         <div className="recipeArea">
-          <Ingredientlist className="ingredients" ingredients={["Test1", "Test2"]} />
+          <Ingredientlist className="ingredients" ingredients={["Dragon", "Chicken"]} />
           //<DigitText.Subtitle2 text={this.props.time} />
         </div>
       </div>

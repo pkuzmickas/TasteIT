@@ -2,8 +2,8 @@
   list-style: none;
   padding-left: 0;
   width: 250px;
-  margin-left: 50%;
-  margin-right: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ingredientList li {

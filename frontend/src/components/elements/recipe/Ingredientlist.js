@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {DigitText} from '@cthit/react-digit-components'
-import './Ingredients.css'
+import './IngredientList.css'
 
 class Ingredientlist extends Component {
   createIngredients(ingredient) {

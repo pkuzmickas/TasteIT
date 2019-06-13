@@ -42,7 +42,7 @@ class Upload extends Component {
                       component: DigitTextField,
                       componentProps: {
                           filled: true,
-                          upperLabel: "Recipename",
+                          upperLabel: "Recipe name",
                           lowerLabel: "Name of the recipe"
                       }
                   },
@@ -50,13 +50,14 @@ class Upload extends Component {
                       component: DigitTextField,
                       componentProps: {
                         filled: true,
-                        upperLabel: "Recipetime",
+                        upperLabel: "Recipe time",
                         lowerLabel: "Cooking time"
                       }
                   },
                   recipeamount: {
                     component: DigitSelect,
                     componentProps: {
+                      upperLabel: "Recipe amount",
                       lowerLabel: "Amount of portions",
                       valueToTextMap: {
                         1: "1",
@@ -77,7 +78,7 @@ class Upload extends Component {
                       component: DigitTextArea,
                       componentProps: {
                         filled: true,
-                        upperLabel: "Recipe Ingredients",
+                        upperLabel: "Recipe ingredients",
                         lowerLabel: "The ingredients to use"
                       }
                   },
@@ -85,7 +86,7 @@ class Upload extends Component {
                       component: DigitTextArea,
                       componentProps: {
                         filled: true,
-                        upperLabel: "Recipedescription",
+                        upperLabel: "Recipe description",
                         lowerLabel: "Description of the recipe (Optional)"
                       }
                   },
@@ -93,7 +94,7 @@ class Upload extends Component {
                       component: DigitTextArea,
                       componentProps: {
                         filled: true,
-                        upperLabel: "Recipe Instructions",
+                        upperLabel: "Recipe instructions",
                         lowerLabel: "Instruction in how to cook the recipe"
                       }
                   }

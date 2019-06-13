@@ -39,10 +39,9 @@ class RecipeGridItem extends Component {
         <DigitText.Text text={this.formatTime()}
                         white="true"/>
         <div className="buttondiv">
-          <DigitButton className="openrecipeviewbutton"
-                      text="Open recipe"
-                      onClick={this.openRecipePage()}
-                      raised="true"/>
+          <DigitButton text="Open recipe"
+                       onClick={this.openRecipePage()}
+                       raised="true"/>
         </div>
       </div>
     );

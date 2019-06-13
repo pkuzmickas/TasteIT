@@ -1,0 +1,21 @@
+.ingredientCreatorArea {
+  margin-top: 90px;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.addIngredientButtonDiv {
+  width: 68.35px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
+
+.createdIngredientArea {
+  width: 400px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}

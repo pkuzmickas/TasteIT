@@ -1,60 +1,47 @@
 import React, {Component} from 'react'
 import './IngredientCreator.css'
-import {Chip, TextField} from '@material-ui/core'
+import IngredientItem from './IngredientItem.js'
+import {Avatar, Chip, TextField} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import {DigitButton, DigitTextField} from '@cthit/react-digit-components'
+import {DigitButton, DigitText, DigitTextField} from '@cthit/react-digit-components'
 
 class IngredientCreator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredientAmounts: [],
-      ingredients: [],
+      ingredientsWithAmount: [],
       currentAmount: 1,
       currentIngredient: ""
     };
+
   }
 
-  createChip = ingredient => {
-    return <Chip key={ingredient}
-                 color="primary"
-                 size="medium"
-                 icon="none"
-                 onDelete={this.handleDelete.bind(this)}
-                 label={ingredient}
-           />
-  }
+  handleDelete = ingredientWithAmount => {
+    let newIngredientsWithAmount = this.state.ingredientsWithAmount;
+    let index = newIngredientsWithAmount.indexOf(ingredientWithAmount);
+    if (index !== -1) {
+      newIngredientsWithAmount.splice(index, 1);
+      this.setState({
+        ingredientsWithAmount: newIngredientsWithAmount
+      });
+    }
 
-  handleDelete = () => {
-
+    console.log(this.state.ingredientsWithAmount);
   }
 
   handleAdd = () => {
-    /*
-    console.log(this.state.currentIngredient);
-    console.log(this.state.currentAmount);
-    console.log(this.state.ingredientAmounts);
-    console.log(this.state.ingredients);
-    */
-    var newIngredientAmounts = this.state.ingredientAmounts;
-    newIngredientAmounts.push(this.state.currentAmount);
-
-    var newIngredients = this.state.ingredients;
-    newIngredients.push(this.state.currentIngredient);
+    let newIngredientsWithAmount = this.state.ingredientsWithAmount;
+    newIngredientsWithAmount.push([
+      this.state.currentIngredient, this.state.currentAmount
+    ]);
 
     this.setState({
-      ingredientAmounts: newIngredientAmounts,
-      ingredients: newIngredients
+      ingredientsWithAmount: newIngredientsWithAmount
     });
-
-    console.log(this.state.ingredientAmounts);
-    console.log(this.state.ingredients);
+    console.log(this.state.ingredientsWithAmount);
   }
 
   render() {
-    var ingredients = this.state.ingredients;
-    var chipItems = ingredients.map(this.createChip);
-
     return (
       <div className="ingredientCreatorArea">
         <DigitTextField onChange={e => {
@@ -75,17 +62,21 @@ class IngredientCreator extends Component {
                        currentAmount: e.target.value
                      });
                    }}
+                   InputLabelProps={{
+                     shrink: true,
+                   }}
                    style={{width: 400}}
                    />
-      <div className="addIngredientButtonDiv">
+        <div className="addIngredientButtonDiv">
           <DigitButton text="Add"
                        primary
                        raised
-                       onClick={this.handleAdd.bind(this)}
+                       onClick={this.handleAdd}
                        />
         </div>
         <div className="createdIngredientArea">
-          {chipItems}
+          <IngredientItem ingredientsWithAmount={this.state.ingredientsWithAmount}
+                          handleDelete={this.handleDelete}/>
         </div>
       </div>
     );

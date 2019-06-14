@@ -1,109 +1,102 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
-import * as yup from 'yup'
-import {DigitText, DigitForm, DigitDesign,
-        DigitFormField, DigitSelect,
-        DigitTextField, DigitCheckbox,
-        DigitButton, DigitTextArea, DigitEditData,
-        DigitToast, DigitToasActions} from '@cthit/react-digit-components'
-import "./styles/Upload.css"
+import {TextField} from '@material-ui/core'
+import IngredientCreator from './elements/upload/IngredientCreator.js'
+import {DigitDesign, DigitText, DigitTextField,
+        DigitTextArea} from '@cthit/react-digit-components'
+import './styles/Upload.css'
 
 class Upload extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipeName: "",
+      recipeTime: "",
+      recipeAmount: "",
+      recipeIngredients: [],
+      recipeDescription: "",
+      recipeInstructions: ""
+    }
+  }
+
   render() {
-    return (
-      <div className="upload">
+    return(
+      <div className="uploadBody">
+        <div className="uploadTitle">
           <DigitText.Heading3 text="Upload recipe" />
-          <div className="uploadform">
-            <DigitEditData
-                marginVertical="10px"
-                absWidth="450px"
-                onSubmit={(values, actions) => {
-                  // Send values to the backend to be stored in the database
-                  console.log(values);
-                  // Converts string into int
-                  values.recipeamount = parseInt(values.recipeamount, 10);
-                  values.recipetime = parseInt(values.recipetime, 10);
-                  // Consider sending a notifaction before reset
-                  actions.resetForm();
-                }}
-                validationSchema={yup.object().shape({
-                  recipename: yup.string().required(),
-                  recipetime: yup.string().required(),
-                  recipetime: yup.string().required(),
-                  recipeingredients: yup.string().required(),
-                  recipeinstructions: yup.string().required()
-                })}
-                submitText={"Upload recipe"}
-                keysOrder={["recipename", "recipetime", "recipeamount",
-                            "recipeingredients", "recipedescription",
-                            "recipeinstructions"]}
-                keysComponentData={{
-                  recipename: {
-                      component: DigitTextField,
-                      componentProps: {
-                          filled: true,
-                          upperLabel: "Recipe name",
-                          lowerLabel: "Name of the recipe"
-                      }
-                  },
-                  recipetime: {
-                      component: DigitTextField,
-                      componentProps: {
-                        filled: true,
-                        upperLabel: "Recipe time",
-                        lowerLabel: "Cooking time"
-                      }
-                  },
-                  recipeamount: {
-                    component: DigitSelect,
-                    componentProps: {
-                      upperLabel: "Recipe amount",
-                      lowerLabel: "Amount of portions",
-                      valueToTextMap: {
-                        1: "1",
-                        2: "2",
-                        3: "3",
-                        4: "4",
-                        5: "5",
-                        6: "6",
-                        7: "7",
-                        8: "8",
-                        9: "9",
-                        10: "10"
-                      },
-                      filled: true
-                    }
-                  },
-                  recipeingredients: {
-                      component: DigitTextArea,
-                      componentProps: {
-                        filled: true,
-                        upperLabel: "Recipe ingredients",
-                        lowerLabel: "The ingredients to use"
-                      }
-                  },
-                  recipedescription: {
-                      component: DigitTextArea,
-                      componentProps: {
-                        filled: true,
-                        upperLabel: "Recipe description",
-                        lowerLabel: "Description of the recipe (Optional)"
-                      }
-                  },
-                  recipeinstructions: {
-                      component: DigitTextArea,
-                      componentProps: {
-                        filled: true,
-                        upperLabel: "Recipe instructions",
-                        lowerLabel: "Instruction in how to cook the recipe"
-                      }
-                  }
-                }}
-                />
+        </div>
+        <DigitDesign.Card abswidth="400px">
+          <div className="uploadForm">
+            <div className="recipeFormElement">
+              <DigitTextField onChange={e => {
+                                this.setState({
+                                  recipeName: e.target.value
+                                });
+                              }}
+                              value={this.state.recipeName}
+                              upperLabel="Recipe name"
+                              lowerLabel="The name of the recipe" />
+            </div>
+            <div className="recipeFormElement">
+              <TextField label="Recipe time"
+                         helperText="Time in minutes"
+                         type="number"
+                         value={this.state.recipeTime}
+                         onChange={e => {
+                          this.setState({
+                            recipeTime: e.target.value
+                          });
+                        }}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        style={{width: 400}} />
+            </div>
+            <div className="recipeFormElement">
+              <TextField label="Recipe amount"
+                         helperText="Amount of servings"
+                         type="number"
+                         value={this.state.recipeAmount}
+                         onChange={e => {
+                          this.setState({
+                            recipeAmount: e.target.value
+                          });
+                        }}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        style={{width: 400}} />
+            </div>
+            <div className="recipeFormElement">
+              <IngredientCreator />
+            </div>
+            <div className="recipeFormElement">
+              <DigitTextArea onChange={e => {
+                              this.setState({
+                                recipeDescription: e.target.value
+                              });
+                             }}
+                             value={this.state.recipeDescription}
+                             upperLabel="Recipe description"
+                             lowerLabel="A description about the recipe"
+                             rows={4} />
+            </div>
+            <div className="recipeFormElement">
+              <DigitTextArea onChange={e => {
+                              this.setState({
+                                recipeInstructions: e.target.valye
+                              });
+                             }}
+                             value={this.state.recipeInstructions}
+                             upperLabel="Recipe instructions"
+                             lowerLabel="How to make this recipe"
+                             rows={4} />
+            </div>
+
           </div>
+        </DigitDesign.Card>
       </div>
     );
   }
 }
 
-export default Upload;
+export default Upload

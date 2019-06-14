@@ -1,11 +1,24 @@
-.upload {
-  margin-top: 110px;
-  text-align: center;
-}
-
-.uploadform {
-  margin-top: 20px;
-  width: 450px;
+.uploadBody {
+  margin-top: 90px;
   margin-left: auto;
   margin-right: auto;
+  width: 440px;
+}
+
+.uploadTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.uploadForm {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  width: 400px;
+
+}
+
+.recipeFormElement {
+  margin-bottom: 30px;
 }

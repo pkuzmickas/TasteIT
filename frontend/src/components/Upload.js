@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {TextField} from '@material-ui/core'
 import IngredientCreator from './elements/upload/IngredientCreator.js'
 import {DigitDesign, DigitText, DigitTextField,
-        DigitTextArea} from '@cthit/react-digit-components'
+        DigitTextArea, DigitButton} from '@cthit/react-digit-components'
 import './styles/Upload.css'
 
 class Upload extends Component {
@@ -16,6 +16,10 @@ class Upload extends Component {
       recipeDescription: "",
       recipeInstructions: ""
     }
+  }
+
+  handleUpload = () => {
+    
   }
 
   render() {
@@ -49,7 +53,7 @@ class Upload extends Component {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        style={{width: 400}} />
+                        style={{width: 460}} />
             </div>
             <div className="recipeFormElement">
               <TextField label="Recipe amount"
@@ -64,7 +68,7 @@ class Upload extends Component {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        style={{width: 400}} />
+                        style={{width: 460}} />
             </div>
             <div className="recipeFormElement">
               <IngredientCreator />
@@ -91,6 +95,13 @@ class Upload extends Component {
                              lowerLabel="How to make this recipe"
                              rows={4} />
             </div>
+
+          </div>
+          <div className="recipeFormElement">
+            <DigitButton text="Upload recipe"
+                         primary
+                         raised
+                         onClick={this.handleUpload} />
 
           </div>
         </DigitDesign.Card>

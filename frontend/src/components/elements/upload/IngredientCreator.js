@@ -43,33 +43,38 @@ class IngredientCreator extends Component {
   render() {
     return (
       <div className="ingredientCreatorArea">
-        <DigitTextField onChange={e => {
-                          this.setState({
-                            currentIngredient: e.target.value
-                          });
-                        }}
-                        upperLabel="Ingredient"
-                        lowerLabel="Type in name of the ingredient"
-                        value={this.state.currentIngredient}
-                        />
-        <TextField label="Amount of ingredients"
-                   helperText="Type in the amount of ingredients"
-                   type="number"
-                   value={this.state.currentAmount}
-                   onChange={e => {
-                     this.setState({
-                       currentAmount: e.target.value
-                     });
-                   }}
-                   InputLabelProps={{
-                     shrink: true,
-                   }}
-                   style={{width: 400}}
-                   />
+        <div className="ingredientCreatorElement">
+          <DigitTextField onChange={e => {
+                            this.setState({
+                              currentIngredient: e.target.value
+                            });
+                          }}
+                          upperLabel="Ingredient"
+                          lowerLabel="Type in name of the ingredient"
+                          value={this.state.currentIngredient}
+                          />
+        </div>
+        <div className="ingredientCreatorElement">
+          <TextField label="Amount of ingredients"
+                     helperText="Type in the amount of ingredients"
+                     type="number"
+                     value={this.state.currentAmount}
+                     onChange={e => {
+                       this.setState({
+                         currentAmount: e.target.value
+                       });
+                     }}
+                     InputLabelProps={{
+                       shrink: true,
+                     }}
+                     style={{width: 400}}
+                     />
+        </div>
+
         <div className="addIngredientButtonDiv">
           <DigitButton text="Add"
                        primary
-                       raised
+                       outlined
                        onClick={this.handleAdd}
                        />
         </div>

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import './IngredientCreator.css'
 import IngredientItem from './IngredientItem.js'
-import {Avatar, Chip, TextField} from '@material-ui/core'
+import {TextField} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import {DigitButton, DigitText, DigitTextField} from '@cthit/react-digit-components'
+import {DigitButton, DigitTextField} from '@cthit/react-digit-components'
 
 class IngredientCreator extends Component {
   constructor(props) {
@@ -26,7 +26,6 @@ class IngredientCreator extends Component {
       });
     }
 
-    console.log(this.state.ingredientsWithAmount);
   }
 
   handleAdd = () => {
@@ -38,7 +37,7 @@ class IngredientCreator extends Component {
     this.setState({
       ingredientsWithAmount: newIngredientsWithAmount
     });
-    console.log(this.state.ingredientsWithAmount);
+
   }
 
   render() {

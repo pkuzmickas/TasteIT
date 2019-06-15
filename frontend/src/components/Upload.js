@@ -59,7 +59,15 @@ class Upload extends Component {
   }
 
   handleUpload = () => {
-
+    let recipeData = [];
+    recipeData.push(this.state.recipeName,
+                    this.state.recipeTime,
+                    this.state.recipeAmount,
+                    this.state.recipeIngredients,
+                    this.state.recipeDescription,
+                    this.state.recipeInstructions);
+    console.log(recipeData);
+    // Do an Axios-call to send this to the backend
   }
 
   render() {
@@ -133,7 +141,7 @@ class Upload extends Component {
             <div className="recipeFormElement">
               <DigitTextArea onChange={e => {
                               this.setState({
-                                recipeInstructions: e.target.valye
+                                recipeInstructions: e.target.value
                               });
                              }}
                              value={this.state.recipeInstructions}
@@ -143,7 +151,7 @@ class Upload extends Component {
             </div>
 
           </div>
-          <div className="recipeFormElement">
+          <div className="uploadButtonDiv">
             <DigitButton text="Upload recipe"
                          primary
                          raised

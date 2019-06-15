@@ -9,78 +9,57 @@ class IngredientCreator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredientsWithAmount: [],
       currentAmount: 1,
       currentIngredient: ""
     };
+  }
 
+  changeAmount = amount => {
+    this.props.changeAmount(amount);
+  }
+
+  changeIngredient = ingredient => {
+    this.props.changeIngredient(ingredient);
   }
 
   handleDelete = ingredientWithAmount => {
-    let newIngredientsWithAmount = this.state.ingredientsWithAmount;
-    let index = newIngredientsWithAmount.indexOf(ingredientWithAmount);
-    if (index !== -1) {
-      newIngredientsWithAmount.splice(index, 1);
-      this.setState({
-        ingredientsWithAmount: newIngredientsWithAmount
-      });
-    }
-
+    this.props.handleDelete(ingredientWithAmount);
   }
 
-  handleAdd = () => {
-    let newIngredientsWithAmount = this.state.ingredientsWithAmount;
-    newIngredientsWithAmount.push([
-      this.state.currentIngredient, this.state.currentAmount
-    ]);
-
-    this.setState({
-      ingredientsWithAmount: newIngredientsWithAmount
-    });
-
-  }
 
   render() {
     return (
       <div className="ingredientCreatorArea">
         <div className="ingredientCreatorElement">
           <DigitTextField onChange={e => {
-                            this.setState({
-                              currentIngredient: e.target.value
-                            });
+                            this.changeIngredient(e.target.value);
                           }}
                           upperLabel="Ingredient"
                           lowerLabel="Type in name of the ingredient"
-                          value={this.state.currentIngredient}
-                          />
+                          value={this.props.ingredientValue} />
         </div>
         <div className="ingredientCreatorElement">
           <TextField label="Amount of ingredients"
                      helperText="Type in the amount of ingredients"
                      type="number"
-                     value={this.state.currentAmount}
+                     value={this.props.amountValue}
                      onChange={e => {
-                       this.setState({
-                         currentAmount: e.target.value
-                       });
+                       this.changeAmount(e.target.value);
                      }}
                      InputLabelProps={{
                        shrink: true,
                      }}
-                     style={{width: 400}}
-                     />
+                     style={{width: 400}} />
         </div>
-
         <div className="addIngredientButtonDiv">
           <DigitButton text="Add"
                        primary
                        outlined
-                       onClick={this.handleAdd}
-                       />
+                       onClick={this.props.handleAdd} />
         </div>
         <div className="createdIngredientArea">
-          <IngredientItem ingredientsWithAmount={this.state.ingredientsWithAmount}
-                          handleDelete={this.handleDelete}/>
+          <IngredientItem ingredientsWithAmount={this.props.recipeIngredients}
+                          handleDelete={this.handleDelete} />
         </div>
       </div>
     );

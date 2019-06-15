@@ -14,12 +14,52 @@ class Upload extends Component {
       recipeAmount: "",
       recipeIngredients: [],
       recipeDescription: "",
-      recipeInstructions: ""
+      recipeInstructions: "",
+      currentIngredient: "",
+      currentAmount: ""
     }
   }
 
+  changeIngredient = ingredient => {
+    console.log(ingredient);
+    this.setState({
+      currentIngredient: ingredient
+    });
+  }
+
+  changeAmount = amount => {
+    console.log(amount);
+    this.setState({
+      currentAmount: amount
+    });
+  }
+
+  handleDelete = ingredientWithAmount => {
+    let newRecipeIngredients = this.state.recipeIngredients;
+    let index = newRecipeIngredients.indexOf(ingredientWithAmount);
+    if (index !== -1) {
+      newRecipeIngredients.splice(index, 1);
+      this.setState({
+        recipeIngredients: newRecipeIngredients
+      });
+    }
+    console.log(this.state.recipeIngredients);
+  }
+
+  handleAdd = () => {
+    console.log(this.state.currentIngredient);
+    console.log(this.state.currentAmount);
+    let newRecipeIngredients = this.state.recipeIngredients;
+    newRecipeIngredients.push([this.state.currentIngredient, this.state.currentAmount]);
+
+    this.setState({
+      recipeIngredients: newRecipeIngredients
+    });
+    console.log(this.state.recipeIngredients);
+  }
+
   handleUpload = () => {
-    
+
   }
 
   render() {
@@ -71,7 +111,13 @@ class Upload extends Component {
                         style={{width: 460}} />
             </div>
             <div className="recipeFormElement">
-              <IngredientCreator />
+              <IngredientCreator recipeIngredients={this.state.recipeIngredients}
+                                 handleAdd={this.handleAdd}
+                                 handleDelete={this.handleDelete}
+                                 changeIngredient={this.changeIngredient}
+                                 changeAmount={this.changeAmount}
+                                 ingredientValue={this.state.currentIngredient}
+                                 amountValue={this.state.currentAmount} />
             </div>
             <div className="recipeFormElement">
               <DigitTextArea onChange={e => {

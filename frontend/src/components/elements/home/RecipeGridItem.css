@@ -1,4 +1,4 @@
-.recipegriditem {
+.recipeGridItem {
   background-color: #2196f3;
   height: 200px;
   width: 300px;
@@ -6,12 +6,12 @@
   padding: 10px;
 }
 
-.recipetitle {
-  text-align: left;
-
+.recipeTitle {
+  float: left;
+  width: 250px;
 }
 
-.buttondiv {
+.buttonDiv {
   width: 300px;
   height: 40px;
   margin-top: 90px;

@@ -34,7 +34,7 @@ class Home extends Component {
     };
   }
 
-  ifUserIsCreator = recipe => {
+  isUserCreator = creator => {
     /*
       Checks if the creator of recipe is the current user, currently
       hardcoded
@@ -48,7 +48,8 @@ class Home extends Component {
                            recipeamount={item.amount}
                            recipedescription={item.description}
                            recipeinstructions={item.instructions}
-                           recipecreator={item.creator} />
+                           recipecreator={item.creator}
+                           userIsCreator={this.isUserCreator} />
   }
 
   render() {

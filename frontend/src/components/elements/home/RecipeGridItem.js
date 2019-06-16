@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {DigitText, DigitButton} from '@cthit/react-digit-components'
+import {DigitText, DigitButton, DigitMenu} from '@cthit/react-digit-components'
 import './RecipeGridItem.css'
 
 class RecipeGridItem extends Component {
@@ -22,7 +22,7 @@ class RecipeGridItem extends Component {
     // TODO: Figure out how to open a new page
   }
 
-  formatTime() {
+  formatTime = () => {
     var str = "Time: ";
     var returnStr = str.concat(this.state.recipetime, " min");
     return returnStr;
@@ -30,16 +30,28 @@ class RecipeGridItem extends Component {
 
   render() {
     return (
-      <div className="recipegriditem">
-        <DigitText.Title className="recipetitle"
-                         white="true"
-                         text={this.state.recipename} />
+      <div className="recipeGridItem">
+        <div className="recipeTitle">
+          <DigitText.Title className="recipeTitle"
+                           white="true"
+                           text={this.state.recipename} />
+        </div>
+        <div className="recipeMenu">
+          <DigitMenu onClick= {value => {
+                      console.log(value + " has been selected");
+                     }}
+                     valueToTextMap={{
+                       first_option: "First option",
+                       second_option: "Second option"
+                     }} />
+        </div>
+
         <DigitText.Text text={this.formatTime()}
-                        white="true"/>
-        <div className="buttondiv">
+                        white="true" />
+          <div className="buttonDiv">
           <DigitButton text="Open recipe"
                        onClick={this.openRecipePage()}
-                       raised="true"/>
+                       raised />
         </div>
       </div>
     );

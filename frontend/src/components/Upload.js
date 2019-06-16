@@ -59,13 +59,15 @@ class Upload extends Component {
   }
 
   handleUpload = () => {
-    let recipeData = [];
-    recipeData.push(this.state.recipeName,
-                    this.state.recipeTime,
-                    this.state.recipeAmount,
-                    this.state.recipeIngredients,
-                    this.state.recipeDescription,
-                    this.state.recipeInstructions);
+    // Hardcoded creator until integration
+    let creator = "schan";
+    let recipeData = {'name': this.state.recipeName,
+                      'time': this.state.recipeTime,
+                      'amount': this.state.recipeAmount,
+                      'ingredients': this.state.recipeIngredients,
+                      'description': this.state.recipeDescription,
+                      'instructions': this.state.recipeInstructions,
+                      'creator': creator};
     console.log(recipeData);
     // Do an Axios-call to send this to the backend
   }

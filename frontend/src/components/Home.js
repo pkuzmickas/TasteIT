@@ -7,57 +7,64 @@ import './styles/Home.css';
 class Home extends Component {
   constructor(props) {
     super(props);
+    /*
+      Currently hardcoded until backend is connected
+      Format of recipe:
+        name
+        time
+        amount
+        ingredients [ingredient, amount]
+        description
+        instructions
+        creator (preferably in form of cid)
+    */
     this.state = {
-      recipes: []
+      recipes: [
+        {'name': "Dragon Chicken", 'time': "30", 'amount': "10",
+         'ingredients': [["Chicken", "10"], ["Dragon", "10"]],
+         'description': "DrawIT's signature dish",
+         'instructions': "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
+         'creator': "schan"},
+         {'name': "Dragon Chicken", 'time': "30", 'amount': "10",
+          'ingredients': [["Chicken", "10"], ["Dragon", "10"]],
+          'description': "DrawIT's signature dish",
+          'instructions': "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
+          'creator': "schan"}
+      ]
     };
-  //  this.getData();
   }
-/*
-  getData() {
-    let self = this;
-    let url = "'localhost:4000';
-    axios.get(url)
-      .then(function(res) {
-        self.setState({
 
-        });
-      })
-      .catch(function() {
-        console.log("Database is not cooperating");
-      });
+  ifUserIsCreator = recipe => {
+    /*
+      Checks if the creator of recipe is the current user, currently
+      hardcoded
+    */
+    return true;
   }
-  */
+
+  renderGridElements = item => {
+    return <RecipeGridItem recipename={item.name}
+                           recipetime={item.time}
+                           recipeamount={item.amount}
+                           recipedescription={item.description}
+                           recipeinstructions={item.instructions}
+                           recipecreator={item.creator} />
+  }
 
   render() {
+    let toBeRendered = this.state.recipes;
+    let gridElements = toBeRendered.map(this.renderGridElements);
+
     return (
       <div className="recipegrid">
         <DigitLayout.UniformGrid
           minItemWidth="300px"
           minItemHeight="200px"
           rowGap="30px"
-          columnGap="30px"
-          >
-          <RecipeGridItem recipename="Dragon Chicken"
-                          recipetime="30 min"
-                          recipeamount="1"
-                          recipedescription="DrawIT's signature dish"
-                          recipeingredients="Dragon, Chicken"
-                          recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                          <RecipeGridItem recipename="Dragon Chicken"
-                                          recipetime="30 min"
-                                          recipeamount="1"
-                                          recipedescription="DrawIT's signature dish"
-                                          recipeingredients="Dragon, Chicken"
-                                          recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>
-                                        <RecipeGridItem recipename="Dragon Chicken"recipetime="30 min"recipeamount="1"recipedescription="DrawIT's signature dish"recipeingredients="Dragon, Chicken"recipeinstructions="Fry chicken, mix with chopped dragon"/>       
+          columnGap="30px" >
+
+          {gridElements}
+
         </DigitLayout.UniformGrid>
       </div>
     );

@@ -12,21 +12,19 @@ class RecipeGridItem extends Component {
       recipeamount: this.props.recipeamount,
       recipedescription: this.props.recipedescription,
       recipeingredients: this.props.recipeingredients,
-      recipeinstructions: this.props.recipeinstructions
-
+      recipeinstructions: this.props.recipeinstructions,
+      recipecreator: this.props.recipecreator
     };
-    // binding for callback
-    this.openRecipePage = this.openRecipePage.bind(this);
   }
 
-  openRecipePage() {
+  openRecipePage = () => {
     // Store information in localStorage, then opens Recipe page
     // TODO: Figure out how to open a new page
   }
 
   formatTime() {
     var str = "Time: ";
-    var returnStr = str.concat(this.state.recipetime);
+    var returnStr = str.concat(this.state.recipetime, " min");
     return returnStr;
   }
 

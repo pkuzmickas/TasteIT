@@ -11,8 +11,7 @@ class App extends Component {
     return (
       <DigitProviders>
         <DigitHeader title="TasteIT"
-          renderMain={() => <Router />}
-        />
+          renderMain={() => <Router />} />
       </DigitProviders>
     );
   }

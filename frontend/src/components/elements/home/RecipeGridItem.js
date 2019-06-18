@@ -28,6 +28,20 @@ class RecipeGridItem extends Component {
     return returnStr;
   }
 
+  handleEditMenu = choice => {
+    if (choice === "edit_recipe") {
+      console.log(choice + " has been selected");
+      // Route to edit page
+    } else {
+      console.log(choice + " has been selected");
+      this.handleDeleteRecipe();
+    }
+  }
+
+  handleDeleteRecipe = () => {
+
+  }
+
   render() {
     return (
       <div className="recipeGridItem">
@@ -41,8 +55,8 @@ class RecipeGridItem extends Component {
                       console.log(value + " has been selected");
                      }}
                      valueToTextMap={{
-                       first_option: "First option",
-                       second_option: "Second option"
+                       edit_recipe: "Edit recipe",
+                       delete_recipe: "Delete recipe"
                      }} />
         </div>
 

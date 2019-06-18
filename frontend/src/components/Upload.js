@@ -6,6 +6,16 @@ import {DigitDesign, DigitText, DigitTextField,
 import './styles/Upload.css'
 
 class Upload extends Component {
+  /*
+  Format of recipe:
+    name
+    time
+    amount
+    ingredients [ingredient, amount]
+    description
+    instructions
+    creator (preferably in form of cid)
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -16,22 +26,27 @@ class Upload extends Component {
       recipeDescription: "",
       recipeInstructions: "",
       currentIngredient: "",
-      currentAmount: ""
+      currentAmount: "",
+      currentMeassurement: ""
     }
   }
 
   changeIngredient = ingredient => {
-    console.log(ingredient);
     this.setState({
       currentIngredient: ingredient
     });
   }
 
   changeAmount = amount => {
-    console.log(amount);
     this.setState({
       currentAmount: amount
     });
+  }
+
+  changeMeassurement = meassurement => {
+    this.setState({
+      currentMeassurement: meassurement
+    })
   }
 
   handleDelete = ingredientWithAmount => {
@@ -126,8 +141,10 @@ class Upload extends Component {
                                  handleDelete={this.handleDelete}
                                  changeIngredient={this.changeIngredient}
                                  changeAmount={this.changeAmount}
+                                 changeMeassurement={this.changeMeassurement}
                                  ingredientValue={this.state.currentIngredient}
-                                 amountValue={this.state.currentAmount} />
+                                 amountValue={this.state.currentAmount}
+                                 meassurementValue={this.state.currentMeassurement} />
             </div>
             <div className="recipeFormElement">
               <DigitTextArea onChange={e => {

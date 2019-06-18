@@ -3,7 +3,7 @@ import './IngredientCreator.css'
 import IngredientItem from './IngredientItem.js'
 import {TextField} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import {DigitButton, DigitTextField} from '@cthit/react-digit-components'
+import {DigitButton, DigitSelect, DigitTextField} from '@cthit/react-digit-components'
 
 class IngredientCreator extends Component {
   constructor(props) {
@@ -22,6 +22,10 @@ class IngredientCreator extends Component {
     this.props.changeIngredient(ingredient);
   }
 
+  changeMeassurement = meassurement => {
+    this.props.changeMeassurement(meassurement);
+  }
+
   handleDelete = ingredientWithAmount => {
     this.props.handleDelete(ingredientWithAmount);
   }
@@ -37,6 +41,19 @@ class IngredientCreator extends Component {
                           upperLabel="Ingredient"
                           lowerLabel="Type in name of the ingredient"
                           value={this.props.ingredientValue} />
+        </div>
+        <div className="ingredientCreatorElement">
+          <DigitSelect
+            upperLabel="Unit of meassurement"
+            value={this.props.meassurementValue}
+            onChange={e => {
+              this.changeMeassurement(e.target.value);
+            }}
+            valueToTextMap={{
+              g: "g",
+              ml: "ml",
+              st: "st"
+            }} />
         </div>
         <div className="ingredientCreatorElement">
           <TextField label="Amount of ingredients"

@@ -5,15 +5,16 @@ import './RecipeGridItem.css'
 class RecipeGridItem extends Component {
   constructor(props) {
     super(props);
+    let recipe = this.props.recipe
     this.state = {
-      recipename: this.props.recipename,
-      recipetime: this.props.recipetime,
+      recipeName: recipe.name,
+      recipeTime: recipe.time,
       // Rest of props are to be sent to recipe page
-      recipeamount: this.props.recipeamount,
-      recipedescription: this.props.recipedescription,
-      recipeingredients: this.props.recipeingredients,
-      recipeinstructions: this.props.recipeinstructions,
-      recipecreator: this.props.recipecreator
+      recipeAmount: recipe.amount,
+      recipeIngredients: recipe.ingredients,
+      recipeDescription: recipe.description,
+      recipeInstructions: this.props.recipeinstructions,
+      recipeCreator: this.props.recipecreator
     };
   }
 
@@ -24,22 +25,31 @@ class RecipeGridItem extends Component {
 
   formatTime = () => {
     var str = "Time: ";
-    var returnStr = str.concat(this.state.recipetime, " min");
+    var returnStr = str.concat(this.state.recipeTime, " min");
     return returnStr;
   }
 
   handleEditMenu = choice => {
-    if (choice === "edit_recipe") {
-      console.log(choice + " has been selected");
-      // Route to edit page
-    } else {
-      console.log(choice + " has been selected");
-      this.handleDeleteRecipe();
-    }
+    this.props.handleEdit(choice);
   }
 
   handleDeleteRecipe = () => {
+    this.props.handleDelete();
+  }
 
+  renderMenuIfCreator = () => {
+    let isCreator = this.props.isUserCreator;
+    if (isCreator) {
+      return <DigitMenu onClick= {value => {
+                  console.log(value + " has been selected");
+                 }}
+                 valueToTextMap={{
+                   edit_recipe: "Edit recipe",
+                   delete_recipe: "Delete recipe"
+                 }} />
+    } else {
+          return <div></div>
+    }
   }
 
   render() {
@@ -48,16 +58,10 @@ class RecipeGridItem extends Component {
         <div className="recipeTitle">
           <DigitText.Title className="recipeTitle"
                            white="true"
-                           text={this.state.recipename} />
+                           text={this.state.recipeName} />
         </div>
         <div className="recipeMenu">
-          <DigitMenu onClick= {value => {
-                      console.log(value + " has been selected");
-                     }}
-                     valueToTextMap={{
-                       edit_recipe: "Edit recipe",
-                       delete_recipe: "Delete recipe"
-                     }} />
+          {this.renderMenuIfCreator()}
         </div>
 
         <DigitText.Text text={this.formatTime()}

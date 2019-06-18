@@ -11,7 +11,7 @@ class Upload extends Component {
     name
     time
     amount
-    ingredients [ingredient, amount]
+    ingredients [ingredient, amount, meassurement]
     description
     instructions
     creator (preferably in form of cid)
@@ -27,7 +27,7 @@ class Upload extends Component {
       recipeInstructions: "",
       currentIngredient: "",
       currentAmount: "",
-      currentMeassurement: ""
+      currentMeassurement: "g"
     }
   }
 
@@ -58,14 +58,14 @@ class Upload extends Component {
         recipeIngredients: newRecipeIngredients
       });
     }
-    console.log(this.state.recipeIngredients);
   }
 
   handleAdd = () => {
-    console.log(this.state.currentIngredient);
-    console.log(this.state.currentAmount);
     let newRecipeIngredients = this.state.recipeIngredients;
-    newRecipeIngredients.push([this.state.currentIngredient, this.state.currentAmount]);
+    newRecipeIngredients.push([
+      this.state.currentIngredient, this.state.currentAmount,
+      this.state.currentMeassurement
+    ]);
 
     this.setState({
       recipeIngredients: newRecipeIngredients

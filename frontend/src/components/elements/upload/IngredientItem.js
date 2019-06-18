@@ -4,26 +4,26 @@ import './IngredientItem.css'
 
 class IngredientItem extends Component {
 
-  handleDelete = ingredientWithAmount => {
-    this.props.handleDelete(ingredientWithAmount);
+  handleDelete = ingredient => {
+    this.props.handleDelete(ingredient);
   }
 
-  formatText = ingredientWithAmount => {
-    let ingredient = ingredientWithAmount[0];
-    let amount = ingredientWithAmount[1];
+  formatText = ingredient => {
+    let ing = ingredient[0];
+    let amount = ingredient[1];
+    let meassurement = ingredient[2];
 
-    return amount + "x " + ingredient;
-
+    return amount + meassurement + " " + ing;
   }
 
   render() {
     return (
       <ul className="ingredientList">
-        {this.props.ingredientsWithAmount.map((ingredientWithAmount) => {
-          return <li onClick={() => {this.handleDelete(ingredientWithAmount)}}
-                     key={ingredientWithAmount[0]}>
-                  <DigitText.Text text={this.formatText(ingredientWithAmount)}
-                                  white="true"/>
+        {this.props.ingredients.map((ingredient) => {
+          return <li onClick={() => {this.handleDelete(ingredient)}}
+                     key={ingredient[0]}>
+                   <DigitText.Text text={this.formatText(ingredient)}
+                                   white="true" />
                 </li>
         })}
       </ul>

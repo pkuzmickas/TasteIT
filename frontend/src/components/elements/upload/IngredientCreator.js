@@ -76,7 +76,7 @@ class IngredientCreator extends Component {
                        onClick={this.props.handleAdd} />
         </div>
         <div className="createdIngredientArea">
-          <IngredientItem ingredientsWithAmount={this.props.recipeIngredients}
+          <IngredientItem ingredients={this.props.recipeIngredients}
                           handleDelete={this.handleDelete} />
         </div>
       </div>

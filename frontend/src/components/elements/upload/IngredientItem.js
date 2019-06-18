@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {DigitText} from '@cthit/react-digit-components'
+import {DigitText, DigitTooltip} from '@cthit/react-digit-components'
 import './IngredientItem.css'
 
 class IngredientItem extends Component {
@@ -20,11 +20,13 @@ class IngredientItem extends Component {
     return (
       <ul className="ingredientList">
         {this.props.ingredients.map((ingredient) => {
-          return <li onClick={() => {this.handleDelete(ingredient)}}
-                     key={ingredient[0]}>
-                   <DigitText.Text text={this.formatText(ingredient)}
+          return <DigitTooltip text="Click to delete">
+                    <li onClick={() => {this.handleDelete(ingredient)}}
+                        key={ingredient[0]}>
+                        <DigitText.Text text={this.formatText(ingredient)}
                                    white="true" />
-                </li>
+                    </li>
+                </DigitTooltip>
         })}
       </ul>
     );

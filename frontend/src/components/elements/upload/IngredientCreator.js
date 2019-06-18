@@ -45,6 +45,7 @@ class IngredientCreator extends Component {
         <div className="ingredientCreatorElement">
           <DigitSelect
             upperLabel="Unit of meassurement"
+            lowerLabel="Default meassurement is grams"
             value={this.props.meassurementValue}
             onChange={e => {
               this.changeMeassurement(e.target.value);

@@ -43,6 +43,19 @@ class IngredientCreator extends Component {
                           value={this.props.ingredientValue} />
         </div>
         <div className="ingredientCreatorElement">
+          <TextField label="Amount of ingredients"
+                     helperText="Type in the amount of ingredients"
+                     type="number"
+                     value={this.props.amountValue}
+                     onChange={e => {
+                       this.changeAmount(e.target.value);
+                     }}
+                     InputLabelProps={{
+                       shrink: true,
+                     }}
+                     style={{width: 400}} />
+        </div>
+        <div className="ingredientCreatorElement">
           <DigitSelect
             upperLabel="Unit of meassurement"
             lowerLabel="Default meassurement is grams"
@@ -55,19 +68,6 @@ class IngredientCreator extends Component {
               ml: "ml",
               st: "st"
             }} />
-        </div>
-        <div className="ingredientCreatorElement">
-          <TextField label="Amount of ingredients"
-                     helperText="Type in the amount of ingredients"
-                     type="number"
-                     value={this.props.amountValue}
-                     onChange={e => {
-                       this.changeAmount(e.target.value);
-                     }}
-                     InputLabelProps={{
-                       shrink: true,
-                     }}
-                     style={{width: 400}} />
         </div>
         <div className="addIngredientButtonDiv">
           <DigitButton text="Add"

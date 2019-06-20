@@ -13,7 +13,7 @@ class IngredientItem extends Component {
     let amount = ingredient[1];
     let meassurement = ingredient[2];
 
-    return amount + meassurement + " " + ing;
+    return amount + " " + meassurement + " " + ing;
   }
 
   render() {

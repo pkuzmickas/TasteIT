@@ -13,7 +13,7 @@ class Home extends Component {
       Format of recipe:
         name
         time
-        amount
+        servings
         ingredients [ingredient, amount]
         description
         instructions
@@ -21,12 +21,12 @@ class Home extends Component {
     */
     this.state = {
       recipes: [
-        {'name': "Dragon Chicken", 'time': "30", 'amount': "10",
+        {'name': "Dragon Chicken", 'time': "30", 'servings': "10",
          'ingredients': [["Chicken", "10", "st"], ["Dragon", "10", "st"]],
          'description': "DrawIT's signature dish",
          'instructions': "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
          'creator': "schan"},
-         {'name': "Dragon Chicken", 'time': "30", 'amount': "10",
+         {'name': "Dragon Chicken", 'time': "30", 'servings': "10",
           'ingredients': [["Chicken", "10"], ["Dragon", "10"]],
           'description': "DrawIT's signature dish",
           'instructions': "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",

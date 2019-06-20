@@ -3,14 +3,15 @@ import {TextField} from '@material-ui/core'
 import IngredientCreator from './elements/upload/IngredientCreator.js'
 import {DigitDesign, DigitText, DigitTextField,
         DigitTextArea, DigitButton} from '@cthit/react-digit-components'
+import * as yup from 'yup'
 import './styles/Upload.css'
 
 class Upload extends Component {
   /*
-  Format of recipe:
+  Format of recipe as a JSON object:
     name
     time
-    amount
+    servings
     ingredients [ingredient, amount, meassurement]
     description
     instructions
@@ -21,7 +22,7 @@ class Upload extends Component {
     this.state = {
       recipeName: "",
       recipeTime: "",
-      recipeAmount: "",
+      recipeServings: "",
       recipeIngredients: [],
       recipeDescription: "",
       recipeInstructions: "",
@@ -73,18 +74,34 @@ class Upload extends Component {
     console.log(this.state.recipeIngredients);
   }
 
+  checkValidation = newRecipe => {
+    let validationSchema = yup.object().shape({
+          name: yup.string().required(),
+          time: yup.string().required(),
+          servings: yup.string().positve().required(),
+          instructions: yup.string().required()});
+    this.state.validationSchema.isValid(newRecipe).then(validation => {
+      return validation;
+    });
+  }
+
   handleUpload = () => {
     // Hardcoded creator until integration
     let creator = "schan";
     let recipeData = {'name': this.state.recipeName,
                       'time': this.state.recipeTime,
-                      'amount': this.state.recipeAmount,
+                      'servings': this.state.recipeServings,
                       'ingredients': this.state.recipeIngredients,
                       'description': this.state.recipeDescription,
                       'instructions': this.state.recipeInstructions,
                       'creator': creator};
-    console.log(recipeData);
-    // Do an Axios-call to send this to the backend
+    if (this.checkValidation()) {
+      // Do an Axios-call to send this to the backend
+      console.log(recipeData);
+    } else {
+
+    }
+
   }
 
   render() {
@@ -121,10 +138,10 @@ class Upload extends Component {
                         style={{width: 460}} />
             </div>
             <div className="recipeFormElement">
-              <TextField label="Recipe amount"
+              <TextField label="Recipe servings"
                          helperText="Amount of servings"
                          type="number"
-                         value={this.state.recipeAmount}
+                         value={this.state.recipeServings}
                          onChange={e => {
                           this.setState({
                             recipeAmount: e.target.value

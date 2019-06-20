@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {TextField} from '@material-ui/core'
+import {Formik} from 'formik'
 import IngredientCreator from './elements/upload/IngredientCreator.js'
 import {DigitDesign, DigitText, DigitTextField,
         DigitTextArea, DigitButton} from '@cthit/react-digit-components'
@@ -20,9 +21,9 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipeName: "",
-      recipeTime: "",
-      recipeServings: "",
+      recipeName: " ",
+      recipeTime: "0",
+      recipeServings: "0",
       recipeIngredients: [],
       recipeDescription: "",
       recipeInstructions: "",
@@ -74,17 +75,6 @@ class Upload extends Component {
     console.log(this.state.recipeIngredients);
   }
 
-  checkValidation = newRecipe => {
-    let validationSchema = yup.object().shape({
-          name: yup.string().required(),
-          time: yup.string().required(),
-          servings: yup.string().positve().required(),
-          instructions: yup.string().required()});
-    this.state.validationSchema.isValid(newRecipe).then(validation => {
-      return validation;
-    });
-  }
-
   handleUpload = () => {
     // Hardcoded creator until integration
     let creator = "schan";
@@ -95,13 +85,24 @@ class Upload extends Component {
                       'description': this.state.recipeDescription,
                       'instructions': this.state.recipeInstructions,
                       'creator': creator};
-    if (this.checkValidation()) {
+    if (this.checkValidation(recipeData)) {
       // Do an Axios-call to send this to the backend
       console.log(recipeData);
     } else {
-
+      console.log("Did not pass validation");
     }
 
+  }
+
+  checkValidation = recipe => {
+    if (recipe.name == " ") {
+      this.setState({
+        recipeName: ""
+      });
+      return false;
+    } else {
+      return true;
+    }
   }
 
   render() {
@@ -119,6 +120,7 @@ class Upload extends Component {
                                 });
                               }}
                               value={this.state.recipeName}
+                              error={this.state.recipeName == ""}
                               upperLabel="Recipe name"
                               lowerLabel="The name of the recipe" />
             </div>
@@ -128,14 +130,15 @@ class Upload extends Component {
                          type="number"
                          value={this.state.recipeTime}
                          onChange={e => {
-                          this.setState({
-                            recipeTime: e.target.value
-                          });
-                        }}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        style={{width: 460}} />
+                           this.setState({
+                             recipeTime: e.target.value
+                           });
+                         }}
+                         error={this.state.recipeTime == ""}
+                         InputLabelProps={{
+                           shrink: true,
+                         }}
+                         style={{width: 460}} />
             </div>
             <div className="recipeFormElement">
               <TextField label="Recipe servings"
@@ -143,14 +146,15 @@ class Upload extends Component {
                          type="number"
                          value={this.state.recipeServings}
                          onChange={e => {
-                          this.setState({
-                            recipeAmount: e.target.value
-                          });
-                        }}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        style={{width: 460}} />
+                           this.setState({
+                             recipeServings: e.target.value
+                           });
+                         }}
+                         error={this.state.recipeServings == ""}
+                         InputLabelProps={{
+                           shrink: true,
+                         }}
+                         style={{width: 460}} />
             </div>
             <div className="recipeFormElement">
               <IngredientCreator recipeIngredients={this.state.recipeIngredients}

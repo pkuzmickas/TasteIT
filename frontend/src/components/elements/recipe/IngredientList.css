@@ -1,16 +1,13 @@
-.ingredientList {
+.ingredientListArea {
   list-style: none;
   padding-left: 0;
-  width: 250px;
+  width: 500px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
 }
 
-.ingredientList li {
-  background-color: #2196f3;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  list-style: none;
+.ingredientListItem {
   padding: 15px;
   text-align: center;
 }

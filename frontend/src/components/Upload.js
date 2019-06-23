@@ -95,7 +95,7 @@ class Upload extends Component {
   }
 
   checkValidation = recipe => {
-    if (recipe.name == " ") {
+    if (recipe.name.replace(/ /g,"") == "") {
       this.setState({
         recipeName: ""
       });

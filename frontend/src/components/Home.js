@@ -40,7 +40,7 @@ class Home extends Component {
       Checks if the creator of recipe is the current user, currently
       hardcoded
     */
-    return false;
+    return true;
   }
 
   handleEdit = choice => {

@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Route} from 'react-router'
 import {DigitDialog, DigitProviders,
-        DigitHeader, DigitNavLink} from '@cthit/react-digit-components';
+        DigitHeader, DigitNavLink,
+        DigitText} from '@cthit/react-digit-components';
 
 import Router from './components/Router'
 import NotFound from './components/NotFound'
+import './App.css'
 
 class App extends Component {
-
-  routeHome = () => {
-
-  }
-
-  routeUpload = () => {
-
-  }
 
   render() {
     return (
@@ -26,13 +20,18 @@ class App extends Component {
                       loading: true
                      }}
                      defaultLanguage="en"
-                     renderDrawer={() => (
+                     renderDrawer={closeDrawer => (
                        <div className="headerNavLinks">
-                         <DigitNavLink text="View recipes" onClick={this.routeHome} />
-                         <DigitNavLink text="Upload recipe" onClick={this.routeUpload} />
+                         <a href="/">{
+                            <DigitText.Text text="View recipe" />
+                                       }
+                         </a>
+                         <a href="/upload">{
+                             <DigitText.Text text="Upload recipe" />
+                           }
+                         </a>
                        </div>
                      )} />
-        <DigitDialog></DigitDialog>
       </DigitProviders>
     );
   }

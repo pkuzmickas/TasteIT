@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {
     DigitText,
     DigitButton,
-    DigitMenu
+    DigitMenu,
+    DigitDesign
 } from "@cthit/react-digit-components";
 import "./RecipeGridItem.css";
 
@@ -23,7 +24,7 @@ class RecipeGridItem extends Component {
     }
 
     openRecipePage = () => {
-        // TODO: Figure out how to open a new page
+        // TODO: Figure out how send data
         window.open("/recipe");
     };
 
@@ -62,25 +63,27 @@ class RecipeGridItem extends Component {
 
     render() {
         return (
-            <div className="recipeGridItem">
-                <div className="recipeTitle">
-                    <DigitText.Title
-                        className="recipeTitle"
-                        white="true"
-                        text={this.state.recipeName}
-                    />
+            <DigitDesign.Card absWidth="320px" absHeight="220px">
+                <div className="recipeGridItem">
+                    <div className="recipeTitle">
+                        <DigitText.Title
+                            className="recipeTitle"
+                            text={this.state.recipeName}
+                        />
+                    </div>
+                    <div className="recipeMenu">
+                        {this.renderMenuIfCreator()}
+                    </div>
+                    <DigitText.Text text={this.formatTime()} />
+                    <div className="buttonDiv">
+                        <DigitButton
+                            text="Open recipe"
+                            onClick={this.openRecipePage}
+                            raised
+                        />
+                    </div>
                 </div>
-                <div className="recipeMenu">{this.renderMenuIfCreator()}</div>
-
-                <DigitText.Text text={this.formatTime()} white="true" />
-                <div className="buttonDiv">
-                    <DigitButton
-                        text="Open recipe"
-                        onClick={this.openRecipePage}
-                        raised
-                    />
-                </div>
-            </div>
+            </DigitDesign.Card>
         );
     }
 }

@@ -63,27 +63,29 @@ class RecipeGridItem extends Component {
 
     render() {
         return (
-            <DigitDesign.Card absWidth="320px" absHeight="220px">
-                <div className="recipeGridItem">
-                    <div className="recipeTitle">
-                        <DigitText.Title
-                            className="recipeTitle"
-                            text={this.state.recipeName}
-                        />
+            <div className="RecipeGridItem">
+                <DigitDesign.Card absWidth="320px" absHeight="220px">
+                    <div className="recipeGridContent">
+                        <div className="recipeTitle">
+                            <DigitText.Title
+                                className="recipeTitle"
+                                text={this.state.recipeName}
+                            />
+                        </div>
+                        <div className="recipeMenu">
+                            {this.renderMenuIfCreator()}
+                        </div>
+                        <DigitText.Text text={this.formatTime()} />
+                        <div className="buttonDiv">
+                            <DigitButton
+                                text="Open recipe"
+                                onClick={this.openRecipePage}
+                                raised
+                            />
+                        </div>
                     </div>
-                    <div className="recipeMenu">
-                        {this.renderMenuIfCreator()}
-                    </div>
-                    <DigitText.Text text={this.formatTime()} />
-                    <div className="buttonDiv">
-                        <DigitButton
-                            text="Open recipe"
-                            onClick={this.openRecipePage}
-                            raised
-                        />
-                    </div>
-                </div>
-            </DigitDesign.Card>
+                </DigitDesign.Card>
+            </div>
         );
     }
 }

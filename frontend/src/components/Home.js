@@ -83,7 +83,7 @@ class Home extends Component {
         let gridElements = toBeRendered.map(this.renderGridElements);
 
         return (
-            <div className="recipegrid">
+            <div className="recipeGrid">
                 <DigitLayout.UniformGrid
                     minItemWidth="300px"
                     minItemHeight="200px"

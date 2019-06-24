@@ -1,19 +1,19 @@
-.recipeGridItem {
+.recipeGridContent {
     height: 200px;
     width: 300px;
-    margin: 10px;
     padding: 10px;
 }
 
 .recipeTitle {
-    float: left;
     width: 250px;
+    height: auto;
+    float: left;
 }
 
 .recipeMenu {
     width: 48px;
     height: 48px;
-    float: right;
+    float: left;
 }
 
 .buttonDiv {

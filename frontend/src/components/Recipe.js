@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Edit from "@material-ui/icons/Edit";
+import axios from "axios";
 import {
     DigitText,
     DigitDesign,
-    DigitFAB
+    DigitFAB,
+    DigitButton
 } from "@cthit/react-digit-components";
 import Ingredientlist from "./elements/recipe/Ingredientlist.js";
 import Instructions from "./elements/recipe/Instructions.js";
@@ -15,22 +17,16 @@ class Recipe extends Component {
         super(props);
         // hardcoded until implemented
         this.state = {
-            recipe: {
-                name: "Dragon Chicken",
-                time: "30",
-                servings: "10",
-                ingredients: [["Chicken", "10", "st"], ["Dragon", "10", "st"]],
-                description:
-                    "DrawIT's signature dishöklköa\nsöldölsakdösaköld\nksaöldklöskölegaldkdjdskjfklsdjfklsdjfdsfjdskfjsklfjkdsfjl",
-                instructions:
-                    "Slice and fry chicken. Sprinkle freshly chopped dragon leaves, serve with fresh pasta or rice",
-                creator: "schan"
-            }
+            recipe: this.props.recipe
         };
     }
 
     formatTime = time => {
         return "Time: " + time + " min";
+    };
+
+    handleGoBack = () => {
+        this.props.handleGoBack();
     };
 
     openEdit = () => {
@@ -42,6 +38,13 @@ class Recipe extends Component {
         return (
             <div className="recipeArea">
                 <DigitDesign.Card abswidth="700px">
+                    <div className="recipeBackButton">
+                        <DigitButton
+                            text="Back"
+                            onClick={this.handleGoBack}
+                            raised
+                        />
+                    </div>
                     <div className="recipeTitleArea">
                         <DigitText.Heading3 text={currentRecipe.name} />
                     </div>

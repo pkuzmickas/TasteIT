@@ -16,7 +16,12 @@ import "./App.css";
 class App extends Component {
     render() {
         return (
-            <DigitProviders>
+            <DigitProviders
+                preloadedState={{
+                    loading: true
+                }}
+                defaultLanguage="en"
+            >
                 <DigitHeader
                     title="TasteIT"
                     renderDrawer={closeDrawer => (
@@ -34,10 +39,6 @@ class App extends Component {
                         </div>
                     )}
                     renderMain={() => <Router />}
-                    preloadedState={{
-                        loading: true
-                    }}
-                    defaultLanguage="en"
                 />
             </DigitProviders>
         );

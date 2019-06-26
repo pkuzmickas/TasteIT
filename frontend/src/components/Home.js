@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { DigitLayout } from "@cthit/react-digit-components";
-import RecipeGridItem from "./elements/home/RecipeGridItem.js";
+import NewWindow from "react-new-window";
+import ReactDOM from "react-dom";
+import RecipeGridView from "./elements/home/RecipeGridView";
+import Recipe from "./Recipe";
 import axios from "axios";
 import "./styles/Home.css";
 
@@ -43,7 +46,9 @@ class Home extends Component {
                         "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
                     creator: "schan"
                 }
-            ]
+            ],
+            recipeOpen: false,
+            recipeSelected: {}
         };
     }
 
@@ -65,35 +70,46 @@ class Home extends Component {
         }
     };
 
-    handleDelete = () => {};
+    handleDelete = recipe => {};
 
-    renderGridElements = item => {
-        return (
-            <RecipeGridItem
-                recipe={item}
-                isUserCreator={this.isUserCreator()}
-                handleEdit={this.handleEdit}
-                handleDelete={this.handleDelete}
-            />
-        );
+    handleGoBack = () => {
+        this.setState({
+            recipeOpen: false
+        });
+    };
+
+    handleOpenRecipe = recipe => {
+        if (this.state.recipeOpen) {
+            this.setState({
+                recipeSelected: recipe
+            });
+        } else {
+            this.setState({
+                recipeOpen: true,
+                recipeSelected: recipe
+            });
+        }
     };
 
     render() {
-        let toBeRendered = this.state.recipes;
-        let gridElements = toBeRendered.map(this.renderGridElements);
-
-        return (
-            <div className="recipeGrid">
-                <DigitLayout.UniformGrid
-                    minItemWidth="300px"
-                    minItemHeight="200px"
-                    rowGap="30px"
-                    columnGap="30px"
-                >
-                    {gridElements}
-                </DigitLayout.UniformGrid>
-            </div>
-        );
+        if (this.state.recipeOpen) {
+            return (
+                <Recipe
+                    recipe={this.state.recipeSelected}
+                    handleGoBack={this.handleGoBack}
+                />
+            );
+        } else {
+            return (
+                <RecipeGridView
+                    recipes={this.state.recipes}
+                    isUserCreator={this.isUserCreator}
+                    handleEdit={this.handleEdit}
+                    handleDelete={this.handleDelete}
+                    handleOpenRecipe={this.handleOpenRecipe}
+                />
+            );
+        }
     }
 }
 

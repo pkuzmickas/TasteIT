@@ -24,8 +24,7 @@ class RecipeGridItem extends Component {
     }
 
     openRecipePage = () => {
-        // TODO: Figure out how send data
-        window.open("/recipe");
+        this.props.handleOpenRecipe(this.props.recipe);
     };
 
     formatTime = () => {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { TextField } from "@material-ui/core";
-import { Formik } from "formik";
+import PropTypes from "prop-types";
 import IngredientCreator from "./elements/upload/IngredientCreator.js";
 import {
     DigitDesign,
@@ -26,15 +26,12 @@ class Upload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipeName: " ",
-            recipeTime: "0",
-            recipeServings: "0",
-            recipeIngredients: [],
-            recipeDescription: "",
-            recipeInstructions: "",
-            currentIngredient: "",
-            currentAmount: "",
-            currentMeassurement: "g"
+            recipeName: this.props.recipeName,
+            recipeTime: this.props.recipeTime,
+            recipeServings: this.props.recipeServings,
+            recipeIngredients: this.props.recipeIngredients,
+            recipeDescription: this.props.recipeDescription,
+            recipeInstructions: this.props.recipeInstructions
         };
     }
 
@@ -224,5 +221,29 @@ class Upload extends Component {
         );
     }
 }
+
+Upload.propTypes = {
+    recipeName: PropTypes.string,
+    recipeTime: PropTypes.string,
+    recipeServings: PropTypes.string,
+    recipeIngredients: PropTypes.array,
+    recipeDescription: PropTypes.string,
+    recipeInstructions: PropTypes.string,
+    currentIngredient: PropTypes.string,
+    currentAmount: PropTypes.string,
+    currentMeassurement: PropTypes.string
+};
+
+Upload.defaultProps = {
+    recipeName: " ",
+    recipeTime: "0",
+    recipeServings: "0",
+    recipeIngredients: [],
+    recipeDescription: "",
+    recipeInstructions: "",
+    currentIngredient: "",
+    currentAmount: "",
+    currentMeassurement: "g"
+};
 
 export default Upload;

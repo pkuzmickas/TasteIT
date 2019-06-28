@@ -64,8 +64,7 @@ class IngredientCreator extends Component {
                 </div>
                 <div className="ingredientCreatorElement">
                     <DigitSelect
-                        upperLabel="Unit of meassurement"
-                        lowerLabel="Default meassurement is grams"
+                        lowerLabel="Unit of meassurement"
                         value={this.props.meassurementValue}
                         onChange={e => {
                             this.changeMeassurement(e.target.value);
@@ -75,6 +74,7 @@ class IngredientCreator extends Component {
                             ml: "ml",
                             st: "st"
                         }}
+                        outlined={true}
                     />
                 </div>
                 <div className="addIngredientButtonDiv">

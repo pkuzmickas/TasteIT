@@ -11,8 +11,8 @@ class RecipeGridView extends Component {
         };
     }
 
-    handleEdit = choice => {
-        this.props.handleEdit(choice);
+    handleMenu = choice => recipe => {
+        this.props.handleMenu(choice, recipe);
     };
 
     handleDelete = recipe => {
@@ -28,7 +28,7 @@ class RecipeGridView extends Component {
             <RecipeGridItem
                 recipe={item}
                 isUserCreator={this.props.isUserCreator(item.creator)}
-                handleEdit={this.handleEdit}
+                handleMenu={this.handleMenu}
                 handleDelete={this.handleDelete}
                 handleOpenRecipe={this.handleOpenRecipe}
             />

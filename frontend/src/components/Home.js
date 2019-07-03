@@ -4,6 +4,7 @@ import NewWindow from "react-new-window";
 import ReactDOM from "react-dom";
 import RecipeGridView from "./elements/home/RecipeGridView";
 import Recipe from "./Recipe";
+import EditRecipe from "./Edit";
 import axios from "axios";
 import "./styles/Home.css";
 
@@ -16,7 +17,7 @@ class Home extends Component {
         name
         time
         servings
-        ingredients [ingredient, amount]
+        ingredients [ingredient, amount, meassurement]
         description
         instructions
         creator (preferably in form of cid)
@@ -60,17 +61,18 @@ class Home extends Component {
         return true;
     };
 
-    handleEdit = choice => {
+    handleMenu = choice => recipe => {
         if (choice === "edit_recipe") {
-            console.log(choice + " has been selected");
+            localStorage.setItem("recipeData", recipe);
             // Route to edit page
+            window.open("/edit", "_blank");
         } else {
             console.log(choice + " has been selected");
-            this.handleDeleteRecipe();
+            this.handleDeleteRecipe(recipe);
         }
     };
 
-    handleDelete = recipe => {};
+    handleDeleteRecipe = recipe => {};
 
     handleGoBack = () => {
         this.setState({
@@ -104,7 +106,7 @@ class Home extends Component {
                 <RecipeGridView
                     recipes={this.state.recipes}
                     isUserCreator={this.isUserCreator}
-                    handleEdit={this.handleEdit}
+                    handleMenu={this.handleMenu}
                     handleDelete={this.handleDelete}
                     handleOpenRecipe={this.handleOpenRecipe}
                 />

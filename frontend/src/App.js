@@ -33,7 +33,7 @@ class App extends Component {
                             />
                             <DigitNavLink
                                 text="Upload recipe"
-                                link="upload"
+                                link="/upload"
                                 onClick={closeDrawer}
                             />
                         </div>

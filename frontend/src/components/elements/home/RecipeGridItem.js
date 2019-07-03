@@ -33,12 +33,20 @@ class RecipeGridItem extends Component {
         return returnStr;
     };
 
-    handleEditMenu = choice => {
-        this.props.handleEdit(choice);
+    handleMenu = choice => {
+        if (choice === "edit_recipe") {
+            localStorage.setItem(
+                "recipeData",
+                JSON.stringify(this.props.recipe)
+            );
+
+            // Route to edit page
+            window.open("/edit", "_blank");
+        }
     };
 
     handleDeleteRecipe = () => {
-        this.props.handleDelete();
+        // TODO: Send backend request to delete and route back to homepage
     };
 
     renderMenuIfCreator = () => {
@@ -47,7 +55,7 @@ class RecipeGridItem extends Component {
             return (
                 <DigitMenu
                     onClick={value => {
-                        console.log(value + " has been selected");
+                        this.handleMenu(value);
                     }}
                     valueToTextMap={{
                         edit_recipe: "Edit recipe",

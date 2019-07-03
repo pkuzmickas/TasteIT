@@ -74,7 +74,6 @@ class IngredientCreator extends Component {
                             ml: "ml",
                             st: "st"
                         }}
-                        outlined={true}
                     />
                 </div>
                 <div className="addIngredientButtonDiv">

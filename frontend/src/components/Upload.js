@@ -31,7 +31,11 @@ class Upload extends Component {
             recipeServings: this.props.recipeServings,
             recipeIngredients: this.props.recipeIngredients,
             recipeDescription: this.props.recipeDescription,
-            recipeInstructions: this.props.recipeInstructions
+            recipeInstructions: this.props.recipeInstructions,
+            currentIngredient: this.props.currentIngredient,
+            currentAmount: this.props.currentAmount,
+            currentMeassurement: this.props.currentMeassurement,
+            editMode: this.props.editMode
         };
     }
 
@@ -109,11 +113,19 @@ class Upload extends Component {
         }
     };
 
+    modeText = () => {
+        if (this.state.editMode) {
+            return "Edit recipe";
+        } else {
+            return "Upload recipe";
+        }
+    };
+
     render() {
         return (
             <div className="uploadBody">
                 <div className="uploadTitle">
-                    <DigitText.Heading3 text="Upload recipe" />
+                    <DigitText.Heading3 text={this.modeText()} />
                 </div>
                 <DigitDesign.Card abswidth="400px">
                     <div className="uploadForm">
@@ -210,7 +222,7 @@ class Upload extends Component {
                     </div>
                     <div className="uploadButtonDiv">
                         <DigitButton
-                            text="Upload recipe"
+                            text={this.modeText()}
                             primary
                             raised
                             onClick={this.handleUpload}
@@ -231,7 +243,8 @@ Upload.propTypes = {
     recipeInstructions: PropTypes.string,
     currentIngredient: PropTypes.string,
     currentAmount: PropTypes.string,
-    currentMeassurement: PropTypes.string
+    currentMeassurement: PropTypes.string,
+    editMode: PropTypes.bool
 };
 
 Upload.defaultProps = {
@@ -243,7 +256,8 @@ Upload.defaultProps = {
     recipeInstructions: "",
     currentIngredient: "",
     currentAmount: "",
-    currentMeassurement: "g"
+    currentMeassurement: "g",
+    editMode: false
 };
 
 export default Upload;

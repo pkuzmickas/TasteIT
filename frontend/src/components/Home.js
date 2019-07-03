@@ -47,9 +47,7 @@ class Home extends Component {
                         "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
                     creator: "schan"
                 }
-            ],
-            recipeOpen: false,
-            recipeSelected: {}
+            ]
         };
     }
 
@@ -74,44 +72,21 @@ class Home extends Component {
 
     handleDeleteRecipe = recipe => {};
 
-    handleGoBack = () => {
-        this.setState({
-            recipeOpen: false
-        });
-    };
-
     handleOpenRecipe = recipe => {
-        if (this.state.recipeOpen) {
-            this.setState({
-                recipeSelected: recipe
-            });
-        } else {
-            this.setState({
-                recipeOpen: true,
-                recipeSelected: recipe
-            });
-        }
+        localStorage.setItem("recipeData", JSON.stringify(recipe));
+        window.open("/recipe", "_self");
     };
 
     render() {
-        if (this.state.recipeOpen) {
-            return (
-                <Recipe
-                    recipe={this.state.recipeSelected}
-                    handleGoBack={this.handleGoBack}
-                />
-            );
-        } else {
-            return (
-                <RecipeGridView
-                    recipes={this.state.recipes}
-                    isUserCreator={this.isUserCreator}
-                    handleMenu={this.handleMenu}
-                    handleDelete={this.handleDelete}
-                    handleOpenRecipe={this.handleOpenRecipe}
-                />
-            );
-        }
+        return (
+            <RecipeGridView
+                recipes={this.state.recipes}
+                isUserCreator={this.isUserCreator}
+                handleMenu={this.handleMenu}
+                handleDelete={this.handleDelete}
+                handleOpenRecipe={this.handleOpenRecipe}
+            />
+        );
     }
 }
 

@@ -15,10 +15,11 @@ class Recipe extends Component {
     // TODO: Seperate each DigitText into separate elements for ease of styling'
     constructor(props) {
         super(props);
-        // hardcoded until implemented
+        let currentRecipe = JSON.parse(localStorage.getItem("recipeData"));
         this.state = {
-            recipe: this.props.recipe
+            recipe: currentRecipe
         };
+        localStorage.removeItem("recipeData");
     }
 
     formatTime = time => {
@@ -26,11 +27,12 @@ class Recipe extends Component {
     };
 
     handleGoBack = () => {
-        this.props.handleGoBack();
+        window.open("/", "_self");
     };
 
     openEdit = () => {
-        console.log("open edit page");
+        localStorage.setItem("recipeData", JSON.stringify(this.state.recipe));
+        window.open("/edit", "_self");
     };
 
     render() {

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import DigitText from "@cthit/react-digit-components";
+import { DigitText } from "@cthit/react-digit-components";
+import "./styles/NotFound.css";
 
 class NotFound extends Component {
     render() {
         return (
-            <div>
-                <h1>404 Not found</h1>
+            <div className="notFoundTextArea">
+                <DigitText.Title text="Error 404: Not Found" />
             </div>
         );
     }

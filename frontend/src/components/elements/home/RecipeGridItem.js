@@ -42,11 +42,14 @@ class RecipeGridItem extends Component {
 
             // Route to edit page
             window.open("/edit", "_blank");
+        } else if (choice === "delete_recipe") {
+            this.handleDeleteRecipe();
         }
     };
 
     handleDeleteRecipe = () => {
         // TODO: Send backend request to delete and route back to homepage
+        this.props.handleDeleteRecipe(this.props.recipe);
     };
 
     renderMenuIfCreator = () => {

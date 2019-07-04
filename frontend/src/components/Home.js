@@ -65,12 +65,23 @@ class Home extends Component {
             // Route to edit page
             window.open("/edit", "_blank");
         } else {
-            console.log(choice + " has been selected");
             this.handleDeleteRecipe(recipe);
         }
     };
 
-    handleDeleteRecipe = recipe => {};
+    handleDeleteRecipe = recipe => {
+        console.log("triggered");
+        let currentRecipes = this.state.recipes;
+        for (let i = 0; i < currentRecipes.length; i++) {
+            if (JSON.stringify(currentRecipes[i]) === JSON.stringify(recipe)) {
+                currentRecipes.splice(i, 1);
+                console.log(currentRecipes);
+                this.setState({
+                    recipes: currentRecipes
+                });
+            }
+        }
+    };
 
     handleOpenRecipe = recipe => {
         localStorage.setItem("recipeData", JSON.stringify(recipe));
@@ -83,7 +94,7 @@ class Home extends Component {
                 recipes={this.state.recipes}
                 isUserCreator={this.isUserCreator}
                 handleMenu={this.handleMenu}
-                handleDelete={this.handleDelete}
+                handleDeleteRecipe={this.handleDeleteRecipe}
                 handleOpenRecipe={this.handleOpenRecipe}
             />
         );

@@ -48,7 +48,6 @@ class RecipeGridItem extends Component {
     };
 
     handleDeleteRecipe = () => {
-        // TODO: Send backend request to delete and route back to homepage
         this.props.handleDeleteRecipe(this.props.recipe);
     };
 

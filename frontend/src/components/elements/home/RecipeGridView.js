@@ -26,6 +26,7 @@ class RecipeGridView extends Component {
     renderGridElements = item => {
         return (
             <RecipeGridItem
+                key={item.id}
                 recipe={item}
                 isUserCreator={this.props.isUserCreator(item.creator)}
                 handleMenu={this.handleMenu}
@@ -37,6 +38,7 @@ class RecipeGridView extends Component {
 
     render() {
         let toBeRendered = this.state.recipes;
+        console.log(toBeRendered);
         let gridElements = toBeRendered.map(this.renderGridElements);
 
         return (

@@ -35,7 +35,8 @@ class Home extends Component {
                     description: "DrawIT's signature dish",
                     instructions:
                         "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan"
+                    creator: "schan",
+                    id: "07e36c28-baad-11e9-a2a3-2a2ae2dbcce4"
                 },
                 {
                     name: "Kragon Chicken",
@@ -45,7 +46,52 @@ class Home extends Component {
                     description: "DrawIT's signature dish",
                     instructions:
                         "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan"
+                    creator: "schan",
+                    id: "07e36e80-baad-11e9-a2a3-2a2ae2dbcce4"
+                },
+                {
+                    name: "Eragon Chicken",
+                    time: "30",
+                    servings: "10",
+                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
+                    description: "DrawIT's signature dish",
+                    instructions:
+                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
+                    creator: "schan",
+                    id: "07e36fd4-baad-11e9-a2a3-2a2ae2dbcce4"
+                },
+                {
+                    name: "Mragon Chicken",
+                    time: "30",
+                    servings: "10",
+                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
+                    description: "DrawIT's signature dish",
+                    instructions:
+                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
+                    creator: "schan",
+                    id: "07e37100-baad-11e9-a2a3-2a2ae2dbcce4"
+                },
+                {
+                    name: "Aragon Chicken",
+                    time: "30",
+                    servings: "10",
+                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
+                    description: "DrawIT's signature dish",
+                    instructions:
+                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
+                    creator: "schan",
+                    id: "07e3722c-baad-11e9-a2a3-2a2ae2dbcce4"
+                },
+                {
+                    name: "Oragon Chicken",
+                    time: "30",
+                    servings: "10",
+                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
+                    description: "DrawIT's signature dish",
+                    instructions:
+                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
+                    creator: "schan",
+                    id: "07e375a6-baad-11e9-a2a3-2a2ae2dbcce4"
                 }
             ]
         };
@@ -70,17 +116,24 @@ class Home extends Component {
     };
 
     handleDeleteRecipe = recipe => {
-        console.log("triggered");
         let currentRecipes = this.state.recipes;
+        const index = currentRecipes.findIndex(r => r.id === recipe.id);
+        currentRecipes.splice(index, 1);
+        this.setState({
+            recipes: currentRecipes
+        });
+
+        /*
         for (let i = 0; i < currentRecipes.length; i++) {
             if (JSON.stringify(currentRecipes[i]) === JSON.stringify(recipe)) {
                 currentRecipes.splice(i, 1);
-                console.log(currentRecipes);
                 this.setState({
                     recipes: currentRecipes
                 });
             }
         }
+        */
+        // Send to backend
     };
 
     handleOpenRecipe = recipe => {

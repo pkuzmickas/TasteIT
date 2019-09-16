@@ -9,7 +9,7 @@ services:
     volumes:
       - ./node:/node
       - /node/node_modules
-      - ./node/ingredients:/node/ingredients
+      - ./data:/node/data
     depends_on:
       - postgres
     command: bash -c "yarn && yarn dev"

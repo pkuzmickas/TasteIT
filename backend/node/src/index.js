@@ -4,7 +4,7 @@ const app = express()
 const port = 4000
 
 // PostgreSQL and Node.js connector
-const { Client } = require('pg')
+/* const { Client } = require('pg')
 const client = new Client({
   user: 'postgres',
   host: 'postgres',
@@ -12,12 +12,13 @@ const client = new Client({
   password: '',
   port: 5432,
 })
-client.connect(err => console.log("Connecting ERROR: " + err));
+client.connect(err => console.log("Connecting ERROR: " + err)); */
 
 //Json reading
 const fs = require("fs");
+const fsp = fs.promises;
 
-// Querys for recipes are rid, rname, rimgurl, ringurl, rscore, rtimereq, rhowto, rmetaurl
+// The parts should be 
 // Ingdocs reads: every line starts with % and ends with & and every entry is described as
 // amount:measurement:name and are separeted by :
 
@@ -25,106 +26,107 @@ const fs = require("fs");
 
 
     app.get('/', (req, res) => {rootRoute(res)});
-    app.get('/recipe/:id', (req, res) => {recipeRoute(req, res)});
-   // app.get('/ingredient/:id', (req, res) => {ingredientRoute(req, res)});
-    app.get('/test', (req, res) => {testRoute(req, res)}); 
+    app.get('/getAllNames', (req, res) => {allNamesRoute(res)});
+    app.get('/getRecipe/:name', (req, res) => {getRecipeRoute(req, res)});
+    app.get('/insertRecipe/:name/:data', (req, res) => {insertRecipeRoute(req, res)});
+    app.get('/getAllRecipes', (req, res) => {getAllRecipesRoute(req, res)});
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 
 /// ALL ROUTE FUNCTIONS
 
 function testRoute(req, res){
-    fs.readFile("./ingredients/test.json", (err, data) => {
+    fs.readFile("./data/test.json", (err, data) => {
         res.send(data);
         console.log("File read error: " + err);
     })
 }
 
 function rootRoute(res){
-    getAllRecipes().then(result => {
+    /* getAllRecipes().then(result => {
         res.json(result.data)
-     }).catch(() => console.log("get(/) did not recive data"));
-     //res.send("Yes")
+     }).catch(() => console.log("get(/) did not recive data")); */
+     res.send("Yes")
 }
 
-function recipeRoute(req, res){
-    getRecipe(req.params.id).then(result => {
-        res.json(result.data)
-    }).catch(err => console.log(err));
-    
+
+function allNamesRoute(res){
+    getAllNames()
+    .then( data => res.send(data))
+    .catch(err => {console.log("allNamesRoute Error: " + err)});
 }
 
-function ingredientRoute(req, res){
-    getIngredients(req.params.id).then(result => {
-        res.json(result.data)
-    }).catch(err => console.log(err));
+function getRecipeRoute(req, res) {
+    getRecipe(req)
+    .then((data) => res.send(data))
+    .catch((err) => {res.send( "This error probably occured because of a faulty URL, URL should consist of the name.json <br>" + err);  console.log(err)})
 }
+
+function insertRecipeRoute(req, res){
+    insertRecipe(req).then(data => res.send(data))
+}
+
+function getAllRecipesRoute(req, res){
+    getAllRecipes(req)
+    .then(data => {res.send(data)})
+    .catch(err => {console.log(err)});
+}
+
+
 
 
 /// RECIPE HANDLING
+/// name - time - servings - ingredients ([ingredient, amount, meassurement]) - description - instructions - creator
 
-/// Returns JSON object with all recipes
-async function getAllRecipes(){    
+
+// RETURNS ONE SPECIFIC RECIPIE ACCORDING TO NAME
+async function getRecipe(req){
     let response;
-    await client.query('SELECT * FROM recipes').then( res=> {
-        response = res.rows;
-    }).catch(err => console.log(err));
-    return {
-        data: response
-    }       
+    let name = req.params.name;
+    const data = await fsp.readFile(`./data/${name}`, "");
+    response = JSON.parse(data);
+    return response;
 }
 
-/// Returns JSON object with one specific recipe, takes the id for the recipe
-async function getRecipe(id){
-    let response;
-    await client.query(`SELECT * FROM recipes WHERE rid=${id}`).then(res => {
-        response = res.rows;
-    }).catch(err => console.log(err));
-    return {
-        data: response
-    } ;
+async function getRecipeLocal(name){
+    return response = await fsp.readFile(`./data/${name}`, "");
 }
 
-/// INGREDIENT HANDLING
 
-async function getIngredientObj(name){
-    let file;
-    await fs.readFile("./ingredients/test.txt", (err, data) => {
-        file = data.toString();
+// RETURNS THE NAME OF ALL RECIPIES
+async function getAllNames() {
+    let response = "{\"recipe\" : [";
+    const data = await fsp.readdir("./data");
+    data.forEach(name => {
+        response += " \"" + name + "\","
     });
-
+    response = response.slice(0, -1);
+    response += "]}";
+    response = JSON.parse(response);
+    return response;
 }
 
-function ingredientsToObjArray(file){
-
+async function insertRecipe(req){
+    let response;
+    let data = req.params;
+    console.log(data)
+    fsp.writeFile(`./data/${data.name}.json`, data)
+    .then(() => console.log("Created"))
+    .catch((err) => console.log(err));
+    return "writen";
 }
 
-/// MISC
-
-
-function newRecipeObj(obj){
-    let recipe = {
-        recipeid: JSON.parse(obj.recipeid),
-        name: removeQuotes(JSON.stringify(obj.name)),
-        ingredientref: JSON.parse(obj.ingredientref),
-        instructions: removeQuotes(JSON.stringify(obj.instructions)),
-        imageurl: removeQuotes(JSON.stringify(obj.imageurl)),
-        timereq: JSON.parse(obj.timereq),
-        rating: JSON.parse(obj.rating)
+async function getAllRecipes(req){
+    let response = "{\"recipes\" : [";
+    const rNames = await getAllNames();
+    const names = rNames.recipe;
+    for(let i = 0; i < 3; i++){
+        response += await getRecipeLocal(names[i]);
+        response += ",";
     }
-    return recipe;
-}
+    response = response.slice(0, -1);
+    response += "]}";
+    console.log(JSON.parse(response));
+    return JSON.parse(response);
 
-function newIngredientObj(obj){
-    let ingredient = {
-        inname: removeQuotes(JSON.stringify(obj.inname)),
-        inmeasure: removeQuotes(JSON.stringify(obj.inmeasure)),
-        inamount: JSON.parse(obj.inamount),
-        
-    }
-    return ingredient;
-}
-
-function removeQuotes(string){
-    return string.slice(1, string.length -1);
 }

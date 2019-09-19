@@ -24,6 +24,8 @@ const fsp = fs.promises;
 
 /// ALL app.get's
 
+    console.log(process.env.testing);
+
 
     app.get('/', (req, res) => {rootRoute(res)});
     app.get('/getAllNames', (req, res) => {allNamesRoute(res)});
@@ -95,15 +97,16 @@ async function getRecipeLocal(name){
 
 // RETURNS THE NAME OF ALL RECIPIES
 async function getAllNames() {
-    let response = "{\"recipe\" : [";
+    const r = {
+        recipes:  []
+    }
     const data = await fsp.readdir("./data");
+
+
     data.forEach(name => {
-        response += " \"" + name + "\","
+        r.recipes.push(name)
     });
-    response = response.slice(0, -1);
-    response += "]}";
-    response = JSON.parse(response);
-    return response;
+    return r;
 }
 
 async function insertRecipe(req){
@@ -117,6 +120,13 @@ async function insertRecipe(req){
 }
 
 async function getAllRecipes(req){
+    const {recipes} = await getAllNames();
+    return await Promise.all(recipes.map(name => getRecipeLocal(name)));
+    
+    
+   /*  for (let name of recipes) {
+
+    }
     let response = "{\"recipes\" : [";
     const rNames = await getAllNames();
     const names = rNames.recipe;
@@ -127,6 +137,6 @@ async function getAllRecipes(req){
     response = response.slice(0, -1);
     response += "]}";
     console.log(JSON.parse(response));
-    return JSON.parse(response);
+    return JSON.parse(response); */
 
 }

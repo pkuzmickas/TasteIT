@@ -29,7 +29,8 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.2.0",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "nodemon": "^1.18.11"
   },
   "scripts": {
     "start": "react-scripts start",

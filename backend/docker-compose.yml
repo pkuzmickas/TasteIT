@@ -6,6 +6,8 @@ services:
     ports:
       - 4000:4000
     working_dir: /node
+    environment: 
+      testing: yeet
     volumes:
       - ./node:/node
       - /node/node_modules

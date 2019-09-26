@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const port = 4000
+const cors = require('cors');
 
 // PostgreSQL and Node.js connector
 /* const { Client } = require('pg')
@@ -13,6 +14,8 @@ const client = new Client({
   port: 5432,
 })
 client.connect(err => console.log("Connecting ERROR: " + err)); */
+
+app.use(cors());
 
 //Json reading
 const fs = require("fs");
@@ -83,13 +86,19 @@ function getAllRecipesRoute(req, res){
 async function getRecipe(req){
     let response;
     let name = req.params.name;
-    const data = await fsp.readFile(`./data/${name}`, "");
-    response = JSON.parse(data);
+    response = await fsp.readFile(`./data/${name}.json`, "utf8");
+    // response = JSON.parse(response);
     return response;
 }
 
 async function getRecipeLocal(name){
-    return response = await fsp.readFile(`./data/${name}`, "");
+    let response = "";
+    let data = await fsp.readFile(`./data/${name}.json`, "utf8");
+    data = JSON.parse(data)
+    console.log(data);
+    response = data;
+    return response;
+    
 }
 
 
@@ -102,7 +111,7 @@ async function getAllNames() {
     });
     response = response.slice(0, -1);
     response += "]}";
-    response = JSON.parse(response);
+    //response = JSON.parse(response);
     return response;
 }
 
@@ -117,7 +126,17 @@ async function insertRecipe(req){
 }
 
 async function getAllRecipes(req){
-    let response = "{\"recipes\" : [";
+
+    let response = {recpies: []}
+
+    let names = await getAllNames();
+
+    response.recpies.push(Promise.all(Map(names, getRecipeLocal(name))));
+
+    return response;
+
+
+  /*   let response = "{\"recipes\" : [";
     const rNames = await getAllNames();
     const names = rNames.recipe;
     for(let i = 0; i < 3; i++){
@@ -127,6 +146,6 @@ async function getAllRecipes(req){
     response = response.slice(0, -1);
     response += "]}";
     console.log(JSON.parse(response));
-    return JSON.parse(response);
+    return JSON.parse(response); */
 
 }

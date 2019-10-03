@@ -22,79 +22,23 @@ class Home extends Component {
         instructions
         creator (preferably in form of cid)
     */
+
         this.state = {
-            recipes: [
-                {
-                    name: "Dragon Chicken",
-                    time: "30",
-                    servings: "10",
-                    ingredients: [
-                        ["Chicken", "10", "st"],
-                        ["Dragon", "10", "st"]
-                    ],
-                    description: "DrawIT's signature dish",
-                    instructions:
-                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan",
-                    id: "07e36c28-baad-11e9-a2a3-2a2ae2dbcce4"
-                },
-                {
-                    name: "Kragon Chicken",
-                    time: "30",
-                    servings: "10",
-                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
-                    description: "DrawIT's signature dish",
-                    instructions:
-                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan",
-                    id: "07e36e80-baad-11e9-a2a3-2a2ae2dbcce4"
-                },
-                {
-                    name: "Eragon Chicken",
-                    time: "30",
-                    servings: "10",
-                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
-                    description: "DrawIT's signature dish",
-                    instructions:
-                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan",
-                    id: "07e36fd4-baad-11e9-a2a3-2a2ae2dbcce4"
-                },
-                {
-                    name: "Mragon Chicken",
-                    time: "30",
-                    servings: "10",
-                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
-                    description: "DrawIT's signature dish",
-                    instructions:
-                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan",
-                    id: "07e37100-baad-11e9-a2a3-2a2ae2dbcce4"
-                },
-                {
-                    name: "Aragon Chicken",
-                    time: "30",
-                    servings: "10",
-                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
-                    description: "DrawIT's signature dish",
-                    instructions:
-                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan",
-                    id: "07e3722c-baad-11e9-a2a3-2a2ae2dbcce4"
-                },
-                {
-                    name: "Oragon Chicken",
-                    time: "30",
-                    servings: "10",
-                    ingredients: [["Chicken", "10"], ["Dragon", "10"]],
-                    description: "DrawIT's signature dish",
-                    instructions:
-                        "Slice and fry chicken\nSprinkle freshly chopped dragon leaves",
-                    creator: "schan",
-                    id: "07e375a6-baad-11e9-a2a3-2a2ae2dbcce4"
-                }
-            ]
+            recipes: []
         };
+    }
+
+    componentDidMount() {
+        axios
+            .get("http://localhost:4000/getRecipe/dragon")
+            .then(res => {
+                this.setState({
+                    recipes: res.data
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     isUserCreator = creator => {
@@ -142,6 +86,7 @@ class Home extends Component {
     };
 
     render() {
+        console.log(this.state.recipes);
         return (
             <RecipeGridView
                 recipes={this.state.recipes}

@@ -1,6 +1,6 @@
 // Express and Port assignment
 const express = require("express");
-//const cors = require("cors");
+const cors = require("cors");
 const app = express();
 const port = 4000;
 
@@ -15,7 +15,7 @@ const client = new Client({
 })
 client.connect(err => console.log("Connecting ERROR: " + err)); */
 
-//app.use(cors());
+app.use(cors());
 
 //Json reading
 const fs = require("fs");

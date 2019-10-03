@@ -1,6 +1,6 @@
 // Express and Port assignment
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const app = express();
 const port = 4000;
 
@@ -15,7 +15,7 @@ const client = new Client({
 })
 client.connect(err => console.log("Connecting ERROR: " + err)); */
 
-app.use(cors());
+//app.use(cors());
 
 //Json reading
 const fs = require("fs");
@@ -141,10 +141,10 @@ async function getAllNames() {
 
 async function insertRecipe(req) {
   let response;
-  let data = req.params;
+  let data = req.query;
   console.log(data);
   fsp
-    .writeFile(`./data/${data.name}.json`, data)
+    .writeFile(`./data/${data.name}.json`, JSON.stringify(data))
     .then(() => console.log("Created"))
     .catch(err => console.log(err));
   return "writen";

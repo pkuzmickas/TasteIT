@@ -36,7 +36,7 @@ app.get("/getAllNames", (req, res) => {
 app.get("/getRecipe/:name", (req, res) => {
   getRecipeRoute(req, res);
 });
-app.get("/insertRecipe/:name/:data", (req, res) => {
+app.post("/insertRecipe/:data", (req, res) => {
   insertRecipeRoute(req, res);
 });
 app.get("/getAllRecipes", (req, res) => {

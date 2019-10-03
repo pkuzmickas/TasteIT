@@ -28,7 +28,7 @@ const fsp = fs.promises;
     app.get('/', (req, res) => {rootRoute(res)});
     app.get('/getAllNames', (req, res) => {allNamesRoute(res)});
     app.get('/getRecipe/:name', (req, res) => {getRecipeRoute(req, res)});
-    app.get('/insertRecipe/:data', (req, res) => {insertRecipeRoute(req, res)});
+    app.post('/insertRecipe/:data', (req, res) => {insertRecipeRoute(req, res)});
     app.get('/getAllRecipes', (req, res) => {getAllRecipesRoute(req, res)});
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 

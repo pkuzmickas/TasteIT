@@ -107,24 +107,35 @@ async function getRecipe(req) {
 }
 
 async function getRecipeLocal(name) {
+  console.log(name);
   let response = "";
-  let data = await fsp.readFile(`./data/${name}.json`, "utf8");
+  let data = await fsp.readFile(`./data/${name}`, "utf8");
   data = JSON.parse(data);
-  console.log(data);
+  //console.log(data);
   response = data;
   return response;
 }
 
 // RETURNS THE NAME OF ALL RECIPIES
 async function getAllNames() {
-  let response = '{"recipe" : [';
-  const data = await fsp.readdir("./data");
-  data.forEach(name => {
-    response += ' "' + name + '",';
-  });
-  response = response.slice(0, -1);
-  response += "]}";
-  //response = JSON.parse(response);
+  /*     let response = "{\"recipe\" : [";
+    const data = await fsp.readdir("./data");
+    data.forEach(name => {
+        response += " \"" + name + "\","
+    });
+    response = response.slice(0, -1);
+    response += "]}";
+    //response = JSON.parse(response); */
+  let response = { names: [] };
+
+  await fsp
+    .readdir("./data")
+    .then(resp => {
+      resp.forEach(resp => {
+        response.names.push(resp);
+      });
+    })
+    .catch(err => console.log(err));
   return response;
 }
 
@@ -142,11 +153,18 @@ async function insertRecipe(req) {
 async function getAllRecipes(req) {
   let response = { recipes: [] };
 
-  let names = await getAllNames();
+  return getAllNames().then(data =>
+    Promise.all(data.names.map(name => getRecipeLocal(name)))
+  );
 
-  response.recipes.push(Promise.all(Map(names, getRecipeLocal(name))));
+  /* getAllNames().then(data => {
+        //console.log(data);
+        data.names.forEach(name => {
+            console.log("Name: " + name);
+            response.recpies.push(getRecipeLocal(name))})}); */
 
-  return response;
+  //response.recpies.push(Promise.all(Map(names, getRecipeLocal(name))));
+  //getAllNames().then(data => {Promise.all(Map(data.names, getRecipeLocal(data.names)))});
 
   /*   let response = "{\"recipes\" : [";
     const rNames = await getAllNames();

@@ -27,12 +27,23 @@ const fsp = fs.promises;
 
 /// ALL app.get's
 
-    app.get('/', (req, res) => {rootRoute(res)});
-    app.get('/getAllNames', (req, res) => {allNamesRoute(res)});
-    app.get('/getRecipe/:name', (req, res) => {getRecipeRoute(req, res)});
-    app.post('/insertRecipe/:data', (req, res) => {insertRecipeRoute(req, res)});
-    app.get('/getAllRecipes', (req, res) => {getAllRecipesRoute(req, res)});
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.get("/", (req, res) => {
+  rootRoute(res);
+});
+app.get("/getAllNames", (req, res) => {
+  allNamesRoute(res);
+});
+app.get("/getRecipe/:name", (req, res) => {
+  getRecipeRoute(req, res);
+});
+app.post("/insertRecipe/:data", (req, res) => {
+  insertRecipeRoute(req, res);
+});
+app.get("/getAllRecipes", (req, res) => {
+  getAllRecipesRoute(req, res);
+});
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
 
 /// ALL ROUTE FUNCTIONS
 
@@ -131,10 +142,10 @@ async function getAllNames() {
 
 async function insertRecipe(req) {
   let response;
-  let data = req.params;
+  let data = req.query;
   console.log(data);
   fsp
-    .writeFile(`./data/${data.name}.json`, data)
+    .writeFile(`./data/${data.name}.json`, JSON.stringify(data))
     .then(() => console.log("Created"))
     .catch(err => console.log(err));
   return "writen";

@@ -29,7 +29,7 @@ class IngredientItem extends Component {
                             >
                                 <DigitText.Text
                                     text={this.formatText(ingredient)}
-                                    white="true"
+                                    white={true}
                                 />
                             </li>
                         </DigitTooltip>

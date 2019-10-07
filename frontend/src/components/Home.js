@@ -6,6 +6,7 @@ import RecipeGridView from "./elements/home/RecipeGridView";
 import Recipe from "./Recipe";
 import EditRecipe from "./Edit";
 import axios from "axios";
+import _ from "lodash";
 import "./styles/Home.css";
 
 class Home extends Component {
@@ -30,8 +31,31 @@ class Home extends Component {
 
     componentDidMount() {
         axios
-            .get("http://localhost:4000/getRecipe/dragon")
+            .get("http://localhost:4000/getAllRecipes")
             .then(res => {
+                /*
+                let unParsedIngredients = res.data.ingredients.split(",");
+                let parsedIngredients = _.chunk(unParsedIngredients, 3);
+
+                let formattedRecipe = res.data;
+                formattedRecipe.ingredients = parsedIngredients;
+                */
+                var i;
+                for (i = 0; i < res.data.length; i++) {
+                    let recipeData = res.data[i];
+                    let unformattedIngredients = recipeData.ingredients;
+                    let formattedIngredients = unformattedIngredients.split(
+                        ","
+                    );
+                    let reformattedIngredients = _.chunk(
+                        formattedIngredients,
+                        3
+                    );
+                    recipeData.ingredients = reformattedIngredients;
+                    res.data[i] = recipeData;
+                }
+
+                console.log(res.data);
                 this.setState({
                     recipes: res.data
                 });

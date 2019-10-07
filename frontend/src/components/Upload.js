@@ -107,9 +107,9 @@ class Upload extends Component {
             this.state.recipeTime +
             "&servings=" +
             this.state.recipeServings +
-            "&ingredients=[" +
+            "&ingredients=" +
             this.state.recipeIngredients +
-            "]&description=" +
+            "&description=" +
             this.state.recipeDescription +
             "&instructions=" +
             this.state.recipeInstructions +

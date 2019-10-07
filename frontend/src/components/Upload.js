@@ -36,7 +36,8 @@ class Upload extends Component {
             currentIngredient: this.props.currentIngredient,
             currentAmount: this.props.currentAmount,
             currentMeassurement: this.props.currentMeassurement,
-            editMode: this.props.editMode
+            editMode: this.props.editMode,
+            noName: false
         };
     }
 
@@ -115,6 +116,8 @@ class Upload extends Component {
             "&creator=" +
             creator;
 
+        console.log(this.state.recipeIngredients);
+
         if (this.checkValidation(recipeData)) {
             // Do an Axios-call to send this to the backend
             console.log(recipeData);
@@ -128,7 +131,14 @@ class Upload extends Component {
     };
     // TODO: Create validator or use yup
     checkValidation = recipe => {
-        return true;
+        if (this.state.recipeName != "") {
+            return true;
+        } else {
+            this.setState({
+                noName: true
+            });
+            return false;
+        }
     };
 
     modeText = () => {
@@ -155,7 +165,7 @@ class Upload extends Component {
                                     });
                                 }}
                                 value={this.state.recipeName}
-                                error={this.state.recipeName == ""}
+                                error={this.state.noName}
                                 upperLabel="Recipe name"
                                 lowerLabel="The name of the recipe"
                             />
@@ -266,7 +276,7 @@ Upload.propTypes = {
 };
 
 Upload.defaultProps = {
-    recipeName: " ",
+    recipeName: "",
     recipeTime: "0",
     recipeServings: "0",
     recipeIngredients: [],

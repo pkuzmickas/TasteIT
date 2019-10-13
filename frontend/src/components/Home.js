@@ -12,17 +12,6 @@ import "./styles/Home.css";
 class Home extends Component {
     constructor(props) {
         super(props);
-        /*
-      Currently hardcoded until backend is connected
-      Format of recipe:
-        name
-        time
-        servings
-        ingredients [ingredient, amount, meassurement]
-        description
-        instructions
-        creator (preferably in form of cid)
-    */
 
         this.state = {
             recipes: []
@@ -55,7 +44,6 @@ class Home extends Component {
                     res.data[i] = recipeData;
                 }
 
-                console.log(res.data);
                 this.setState({
                     recipes: res.data
                 });
